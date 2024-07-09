@@ -1,0 +1,8 @@
+Criar projeto next
+- Instalar o prisma npm install prisma --save-dev
+- Iniciar o prisma (criar o schema e o .env) npx prisma init
+- Instalar o prisma/client npm install @prisma/client
+
+Instalados:
+jsonwebtoken - autenticação
+bcrypt & types/bcrypt- criptografia

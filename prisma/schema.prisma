@@ -1,0 +1,188 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Users {
+  id String @id @default(uuid())
+  email String @unique @db.VarChar(30)
+  completeName String @db.VarChar(50)
+  password String @db.VarChar(64)
+  banner String?
+  role Role @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  userData UserData[]
+
+  @@map("users")
+}
+
+model UserData {
+  id String @id @default(uuid())
+  height Decimal @db.Decimal(3, 2)
+  weight Decimal @db.Decimal(4, 1)
+  birth DateTime @db.Date
+  goal String 
+  activityLevel String
+  gender String @db.VarChar(1)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  userId String
+  usuario Users @relation(fields: [userId], references: [id])
+
+  @@map("usersData")
+}
+
+model FoodCategory {
+	id String @id @default(uuid())
+	name String @db.VarChar(20)
+  banner String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  foodItem FoodItems[]
+  @@map("foodCategories")
+}
+
+model FoodItems {
+	id String @id @default(uuid())
+	name String @db.VarChar(30)
+  calories Int
+  banner String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  createdBy String
+
+  recipeFoodItem RecipeFoodItem[]
+  foodNutrient FoodNutrients[]
+  mealFoodItems MealFoodItems[]
+
+  foodCategoryId String
+  foodCategory FoodCategory @relation(fields: [foodCategoryId], references: [id])
+
+  @@map("foodItems")
+}
+
+model Nutrients {
+	id String @id @default(uuid())
+  name String @db.VarChar(50)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) 
+
+  foodNutrient FoodNutrients[]
+  @@map("nutrients")
+}
+
+model FoodNutrients {
+  id String @id @default(uuid())
+  quantity Decimal @db.Decimal(4, 1)
+
+  foodItemId String
+  foodItem FoodItems @relation(fields: [foodItemId], references: [id])
+
+  nutrientsId String
+  nutrients Nutrients @relation(fields: [nutrientsId], references: [id])
+
+  @@map("foodNutrients")
+}
+
+model Preparation {
+  id String @id @default(uuid())
+  name String @db.VarChar(20)
+  description String? @db.VarChar(191)
+  additionalCalories Int
+  fats Decimal @db.Decimal(4, 1)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  recipe Recipes[]
+
+  @@map("preparations")
+}
+
+model Recipes {
+  id String @id @default(uuid())
+  description String? @db.VarChar(191)
+  banner String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  createdBy String
+
+
+  preparationId String
+  preparation Preparation @relation(fields: [preparationId], references: [id])
+
+  recipeFoodItem RecipeFoodItem[]
+  mealRecipes MealRecipes[]
+
+  @@map("recipes")
+}
+
+model RecipeFoodItem {
+  id String @id @default(uuid())
+  quantity Decimal @db.Decimal(4, 1)
+
+  recipeId String
+  recipe Recipes @relation(fields: [recipeId], references: [id])
+
+  foodItemId String
+  foodItem FoodItems @relation(fields: [foodItemId], references: [id])
+
+  @@map("recipeFoodItems")
+}
+
+model Meals {
+  id String @id @default(uuid())
+  name String @db.VarChar(30)
+  description String? @db.VarChar(191)
+  banner String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  createdBy String
+
+  mealRecipes MealRecipes[]
+  mealFoodItems MealFoodItems[]
+
+  @@map("meals")
+}
+
+model MealRecipes {
+  id String @id @default(uuid())
+
+  mealId String
+  meal Meals @relation(fields: [mealId], references: [id])
+
+  recipeId String
+  recipe Recipes @relation(fields: [recipeId], references: [id])
+
+  @@map("mealRecipes")
+}
+
+model MealFoodItems {
+  id String @id @default(uuid())
+
+  mealId String
+  meal Meals @relation(fields: [mealId], references: [id])
+
+  foodItemId String
+  foodItem FoodItems @relation(fields: [foodItemId], references: [id])
+
+  @@map("mealFoodItems")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
