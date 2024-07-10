@@ -28,7 +28,7 @@ export default function LoginForm() {
   });
 
   return (
-    <form action={action} className="text-black">
+    <form action={action} className="flex flex-col">
       <Input
         type="email"
         placeholder="Seu e-mail"
@@ -36,6 +36,7 @@ export default function LoginForm() {
         required
         value={email}
         onChange={(e) => setEmail(e.target.value)}
+        className="mb-3"
       ></Input>
       <Input
         type="password"
@@ -46,7 +47,6 @@ export default function LoginForm() {
         onChange={(e) => setPassword(e.target.value)}
       ></Input>
       <FormButton />
-      <p className="text-white">Bem-vindo {state.user?.name}</p>
     </form>
   );
 }
