@@ -14,10 +14,9 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <section className="p-5 flex flex-col justify-center">
+    <section className="p-5 flex flex-col items-center">
       <Subtitle>Acesse</Subtitle>
       <LoginForm />
-
     </section>
   );
 }

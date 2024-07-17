@@ -5,7 +5,7 @@ export default function Input({ className, ...props }: InputType) {
   // return <input className="leading-7 text-neutral-950 px-2" {...props}></input>;
   return (
     <input
-      className="border-solid border border-midGreen w-full leading-7"
+      className="border-solid border border-midGreen w-full leading-7 px-2"
       {...props}
     ></input>
   );

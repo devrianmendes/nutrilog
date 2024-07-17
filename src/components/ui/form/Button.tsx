@@ -15,14 +15,14 @@ export default function Button({
     <>
       {buttonType === "primary" ? (
         <button
-          className={`text-bright bg-midGreen h-9 font-medium w-32 ${extraClass}`}
+          className={`text-bright bg-midGreen h-9 font-medium w-32 ${extraClass} hover:scale-110 duration-100`}
           {...props}
         >
           {children}
         </button>
       ) : (
         <button
-          className={`text-midGreen border-2 h-9 font-medium w-20 ${extraClass}`}
+          className={`text-midGreen border-2 h-9 font-medium w-20 ${extraClass} hover:scale-110 duration-100`}
           {...props}
         >
           {children}

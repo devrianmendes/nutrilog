@@ -10,10 +10,9 @@ export const metadata: Metadata = {
 
 export default function LoginPage() {
   return (
-    <section className="p-5 flex flex-col justify-center">
+    <section className="p-5 flex flex-col items-center">
       <Subtitle>Crie sua conta</Subtitle>
       <CreateUserForm />
-      <Link href="/">Voltar para login</Link>
     </section>
   );
 }

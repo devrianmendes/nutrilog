@@ -36,7 +36,7 @@ export default function LoginForm() {
   }, [state.ok]);
 
   return (
-    <form action={action} className="flex flex-col w-full">
+    <form action={action} className="flex flex-col w-full max-w-xl">
       <label htmlFor="email">
         E-mail: <span className="text-red-500">*</span>
       </label>
@@ -59,7 +59,7 @@ export default function LoginForm() {
         onChange={(e) => setPassword(e.target.value)}
       ></Input>
       <FormButton />
-      <Link href="/criar-usuario" className="text-white">
+      <Link href="/criar-usuario" className="m-auto text-midGreen hover:underline">
         Não possui conta? Cadastre-se
       </Link>
       <p>{state.error}</p>

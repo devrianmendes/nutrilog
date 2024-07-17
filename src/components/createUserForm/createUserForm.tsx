@@ -6,6 +6,7 @@ import { useFormState, useFormStatus } from "react-dom";
 import createUser from "@/actions/user/createUser";
 import Button from "../ui/form/Button";
 import Input from "../ui/form/Input";
+import Link from "next/link";
 
 const FormButton = () => {
   const { pending } = useFormStatus();
@@ -32,7 +33,7 @@ export default function CreateUserForm() {
   }, [state.ok]);
 
   return (
-    <form action={action} className="flex flex-col w-full">
+    <form action={action} className="flex flex-col w-full max-w-xl">
       <label htmlFor="completeName">
         Nome: <span className="text-red-500">*</span>
       </label>
@@ -72,6 +73,8 @@ export default function CreateUserForm() {
       <p>adicionar input de cidade</p>
       <p>adicionar input de termos de privacidade</p>
       <FormButton />
+      <Link href="/" className="m-auto text-midGreen hover:underline">Voltar para login</Link>
+
       <p>{state.error}</p>
     </form>
   );
