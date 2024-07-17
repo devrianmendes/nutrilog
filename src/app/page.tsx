@@ -1,26 +1,38 @@
+import Button from "@/components/ui/form/Button";
 import { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
 
-import LoginForm from "@/components//login/LoginForm";
-
-import bg from "@/assets/nutrilog-bg-1.webp";
-import Title from "@/components/ui/title";
 export const metadata: Metadata = {
   title: "NutriLog",
-  description: "Login",
+  description: "Sua ferramenta de apoio nutricional",
 };
 
 export default function Home() {
   return (
-    <main className="px-5 flex flex-col justify-center align-middle h-screen">
-      <Image src={bg} alt="Nutrilog background" />
-      <Title>NutriLog</Title>
-      <p className="font-normal">Sua Ferramenta de Controle Nutricional</p>
-      <LoginForm />
-      <Link href="/createUser" className="text-white">
-        Não possui conta? Cadastre-se
-      </Link>
-    </main>
+    <section className="p-4">
+      <title>Controle nutricional e gestão de refeições.</title>
+      <p>
+        A <span className="font-bold text-midGreen">NutriLog</span> é uma
+        ferramenta <span className="font-bold text-midGreen">gratuita</span> de
+        controle nutricional feita com carinho para te ajudar na conquista dos
+        seus objetivos.
+      </p>
+      <br />
+      <p>
+        Com ela você consegue{" "}
+        <span className="font-bold text-midGreen">acompanhar sua evolução</span>
+        , <span className="font-bold text-midGreen">montar suas refeições</span>{" "}
+        e{" "}
+        <span className="font-bold text-midGreen">
+          analisar seu gasto e ganho calóricos
+        </span>{" "}
+        além de compartilha-las com outros usuários.
+      </p>
+      <br />
+      <p>
+        Seja qual for seu objetivo, a{" "}
+        <span className="font-bold text-midGreen">NutriLog</span> pode te ajudar
+        a ter um <span className="font-bold text-midGreen">controle preciso</span> para um <span className="font-bold text-midGreen">resultado mais rápido</span>.
+      </p>
+    </section>
   );
 }

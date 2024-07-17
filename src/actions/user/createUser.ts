@@ -3,6 +3,7 @@
 //O servidor está sempre retornando um resposta status 200. ver o porque
 import { prismaClient } from "@/prisma";
 import { hash } from "bcrypt";
+import loginUser from "./loginUser";
 
 export default async function createUser(state: {}, formData: FormData) {
   const user = {
@@ -41,6 +42,8 @@ export default async function createUser(state: {}, formData: FormData) {
         email: true,
       },
     });
+
+    await loginUser({ok: true, error: '', data: null}, formData);
 
     return {
       ok: true,

@@ -1,5 +1,6 @@
 "use server";
 
+import { useUser } from "@/context/userContext";
 import { prismaClient } from "@/prisma";
 import { compare } from "bcrypt";
 import { sign } from "jsonwebtoken";
@@ -13,9 +14,7 @@ export default async function loginUser(state: {}, formData: FormData) {
 
   try {
     //VERIFICANDO SE OS DADOS FORAM PREENCHIDOS
-    if (!user.email || !user.password) {
-      throw new Error("Preencha os dados.");
-    }
+    if (!user.email || !user.password) throw new Error("Preencha os dados.");
 
     //VERIFICANDO SE O EMAIL EXISTE NO DB
     const authUser = await prismaClient.users.findFirst({
@@ -58,19 +57,29 @@ export default async function loginUser(state: {}, formData: FormData) {
       maxAge: 60 * 60 * 24,
     });
 
+    // setUserData({
+    // id: authUser.id,
+    // email: authUser.email,
+    // completeName: authUser.completeName,
+    // banner: authUser.banner,
+    // role: authUser.role,
+    // });
+
     return {
       ok: true,
       error: "",
       user: {
         id: authUser.id,
-        name: authUser.completeName,
+        email: authUser.email,
+        completeName: authUser.completeName,
         banner: authUser.banner,
+        role: authUser.role,
       },
     };
   } catch (error: unknown) {
     if (error instanceof Error) {
       return {
-        ok: true,
+        ok: false,
         error: error.message,
         user: null,
       };

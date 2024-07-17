@@ -1,9 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useFormState, useFormStatus } from "react-dom";
-
-import { redirect } from "next/navigation";
 
 import createUser from "@/actions/user/createUser";
 import Button from "../ui/form/Button";
@@ -12,7 +10,7 @@ import Input from "../ui/form/Input";
 const FormButton = () => {
   const { pending } = useFormStatus();
   return (
-    <Button className="text-white" type="submit" disabled={pending}>
+    <Button buttonType="primary" extraClass="m-auto mt-5" type="submit" disabled={pending}>
       {pending ? "Criando..." : "Criar"}
     </Button>
   );
@@ -29,9 +27,15 @@ export default function CreateUserForm() {
     user: null,
   });
 
-  if (state.ok) redirect("/");
+  useEffect(() => {
+    if (state.ok) window.location.href = "/";
+  }, [state.ok]);
+
   return (
-    <form action={action} className="text-black">
+    <form action={action} className="flex flex-col w-full">
+      <label htmlFor="completeName">
+        Nome: <span className="text-red-500">*</span>
+      </label>
       <Input
         type="text"
         name="completeName"
@@ -40,6 +44,9 @@ export default function CreateUserForm() {
         value={completeName}
         onChange={(e) => setCompleteName(e.target.value)}
       />
+      <label htmlFor="email">
+        E-mail: <span className="text-red-500">*</span>
+      </label>
       <Input
         type="email"
         name="email"
@@ -48,6 +55,9 @@ export default function CreateUserForm() {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
+      <label htmlFor="password">
+        Senha: <span className="text-red-500">*</span>
+      </label>
       <Input
         type="password"
         name="password"
@@ -56,8 +66,13 @@ export default function CreateUserForm() {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
+      <p>adicionar input de confirmar senha</p>
+      <p>adicionar input de genero</p>
+      <p>adicionar input de estado</p>
+      <p>adicionar input de cidade</p>
+      <p>adicionar input de termos de privacidade</p>
       <FormButton />
-      <p className="text-white">{state.error}</p>
+      <p>{state.error}</p>
     </form>
   );
 }
