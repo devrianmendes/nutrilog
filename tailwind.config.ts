@@ -22,7 +22,8 @@ const config: Config = {
       bright: '#fafafa',
       lightGreen: '#C8E318',
       midGreen: '#97C61E',
-      darkGreen: '#6CB125'
+      darkGreen: '#6CB125',
+      errorRed: '#ff0024'
     }
   },
   plugins: [],

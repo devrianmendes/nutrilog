@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import Link from "next/link";
+
 import CreateUserForm from "@/components/createUserForm/createUserForm";
 import Subtitle from "@/components/ui/subtitle";
 

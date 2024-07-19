@@ -3,6 +3,7 @@ import Image from "next/image";
 import logo from "@/assets/nutrilog-logo.png";
 import Link from "next/link";
 import Button from "../ui/form/Button";
+import { Span } from "../ui/span";
 
 export default function Header() {
   return (
@@ -16,7 +17,7 @@ export default function Header() {
           width={80}
         />
         <div className="text-center mb-2">
-          <Title>NutriLog</Title>
+          <Title><Span>N</Span>utri<Span>L</Span>og</Title>
           <p>O seu diário nutricional</p>
         </div>
       </Link>

@@ -46,7 +46,7 @@ export default function LoginForm() {
         required
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        className="mb-3"
+        extraClass="mb-3"
       ></Input>
       <label htmlFor="password">
         Senha: <span className="text-red-500">*</span>
