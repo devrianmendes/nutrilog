@@ -66,23 +66,6 @@ export default function CreateUserForm() {
     if (state.ok) window.location.href = "/";
   }, [state.ok]);
 
-  console.log(
-    completeName,
-    email,
-    password,
-    confirmPassword,
-    gender,
-    userState,
-    userCity,
-    birth,
-    goal,
-    activity,
-    weight,
-    height,
-    terms,
-    "on client"
-  );
-
   return (
     <form action={action} className="flex flex-col w-full max-w-xl">
       <label htmlFor="completeName">
@@ -111,7 +94,10 @@ export default function CreateUserForm() {
       <label htmlFor="password">
         Senha: <Span spanType="error">*</Span>
         {password !== confirmPassword && (
-          <Span spanType="error">As senhas estão diferentes</Span>
+          <Span spanType="error" extraClass="font-normal">
+            {" "}
+            As senhas estão diferentes
+          </Span>
         )}
       </label>
       <Input
@@ -125,7 +111,10 @@ export default function CreateUserForm() {
       <label htmlFor="password">
         Repita sua senha: <Span spanType="error">*</Span>
         {password !== confirmPassword && (
-          <Span spanType="error">As senhas estão diferentes</Span>
+          <Span spanType="error" extraClass="font-normal">
+            {" "}
+            As senhas estão diferentes
+          </Span>
         )}
       </label>
       <Input
@@ -227,11 +216,12 @@ export default function CreateUserForm() {
             Peso: <Span spanType="error">*</Span>
           </label>
           <Input
-            extraClass="mx-1 w-10/12 sm:w-3/5 !mb-0"
+            extraClass="mx-1 w-10/12 sm:w-6/12 !mb-0"
             type="range"
             name="weight"
             min="30"
             max="200"
+            step="0.1"
             value={weight}
             onChange={(e) => setWeight(e.target.value)}
             required
@@ -243,7 +233,7 @@ export default function CreateUserForm() {
             Altura: <Span spanType="error">*</Span>
           </label>
           <Input
-            extraClass="mx-1 w-10/12 sm:w-3/5 !mb-0"
+            extraClass="mx-1 w-10/12 sm:w-6/12 !mb-0"
             type="range"
             name="height"
             min="130"

@@ -4,6 +4,7 @@
 import { prismaClient } from "@/prisma";
 import { hash } from "bcrypt";
 import loginUser from "./loginUser";
+import UserDataFormatter from "@/functions/userDataFormatter";
 
 export default async function createUser(state: {}, formData: FormData) {
   const user = {
@@ -22,18 +23,7 @@ export default async function createUser(state: {}, formData: FormData) {
     terms: formData.get("terms") === "on" ? true : false,
   };
 
-  console.log(formData);
-
-  const dataFormat = (value: string) => {
-    const birth = new Date(value).toISOString();
-    console.log(birth, 'on function')
-    return birth;
-  }
-
   try {
-    if (!user.terms)
-      throw new Error("Você precisa aceitar os termos e condições.");
-
     if (
       !user.completeName ||
       !user.email ||
@@ -51,27 +41,29 @@ export default async function createUser(state: {}, formData: FormData) {
       throw new Error("Preencha os dados.");
     }
 
-    user.birth = dataFormat(user.birth);
-
-    // console.log(
-    //   user.completeName,
-    //   user.email,
-    //   user.password,
-    //   user.confirmPassword,
-    //   user.gender,
-    //   user.userState,
-    //   user.userCity,
-    //   user.birth,
-    //   user.goal,
-    //   user.activity,
-    //   user.weight,
-    //   user.height,
-    //   user.terms,
-    //   "on server"
-    // );
-
     if (user.password !== user.confirmPassword)
       throw new Error("As senhas estão diferentes.");
+
+    if (!user.terms)
+      throw new Error("Você precisa aceitar os termos e condições.");
+
+    const validUser = {
+      completeName: user.completeName,
+      email: user.email,
+      password: user.password,
+      confirmPassword: user.confirmPassword,
+      gender: user.gender,
+      birth: user.birth,
+      goal: user.goal,
+      activity: user.activity,
+      weight: user.weight,
+      height: user.height,
+      userState: user.userState,
+      userCity: user.userCity,
+      terms: user.terms,
+    };
+
+    UserDataFormatter(validUser);
 
     const emailAlreadyExist = await prismaClient.users.findFirst({
       where: {
