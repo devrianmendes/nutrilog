@@ -13,13 +13,13 @@ type ProviderProps = {
   user: UserSessionProps | null;
 };
 
-export const UserContext = createContext<UserContextProps | null>(null);
+export const UserContext = createContext<UserContextProps | undefined>(undefined);
 
 export const useUser = () => {
   const context = useContext(UserContext);
 
   if (context === null) {
-    throw new Error("SEI LA CARAI");
+    throw new Error("useContext deve estar dentro do Provider");
   }
   return context;
 };
