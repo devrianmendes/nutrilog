@@ -23,7 +23,6 @@ const FormButton = () => {
 export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { setUserData } = useUser();
 
   const [state, action] = useFormState(loginUser, {
     ok: false,

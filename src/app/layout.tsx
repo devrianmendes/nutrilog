@@ -15,21 +15,8 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  
-  // const user = {
-  //   id: "1",
-  //   email: "1",
-  //   completeName: "1",
-  //   password: "1",
-  //   banner: "1",
-  //   role: "1",
-  // };
 
-  const user = getUser();
-  console.log(user)
-
-  const userr = await getUser();
-  console.log(userr, 'no layout')
+  const user = await getUser();
 
   return (
     <html lang="pt-BR">

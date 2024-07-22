@@ -1,6 +1,5 @@
 "use server";
 
-import { useUser } from "@/context/userContext";
 import { prismaClient } from "@/prisma";
 import { compare } from "bcrypt";
 import { sign } from "jsonwebtoken";
@@ -56,14 +55,6 @@ export default async function loginUser(state: {}, formData: FormData) {
       sameSite: "lax",
       maxAge: 60 * 60 * 24,
     });
-
-    // setUserData({
-    // id: authUser.id,
-    // email: authUser.email,
-    // completeName: authUser.completeName,
-    // banner: authUser.banner,
-    // role: authUser.role,
-    // });
 
     return {
       ok: true,

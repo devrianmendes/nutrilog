@@ -5,7 +5,9 @@ import { prismaClient } from "@/prisma";
 export default async function getUser() {
   try {
     const token = cookies().get("Auth")?.value;
-    if (!token) throw new Error("Usuário precisa estar logado.");
+
+    if (!token) return;
+
     const validated = await validateToken(token);
 
     const user = await prismaClient.users.findFirst({

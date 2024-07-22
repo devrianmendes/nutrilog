@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState } from "react";
-import { UserProps, UserSessionProps } from "@/util/types";
+import { UserSessionProps } from "@/util/types";
 
 type UserContextProps = {
   userData: UserSessionProps | null;
@@ -10,10 +10,12 @@ type UserContextProps = {
 
 type ProviderProps = {
   children: React.ReactNode;
-  user: UserSessionProps | null;
+  user?: UserSessionProps | null;
 };
 
-export const UserContext = createContext<UserContextProps | undefined>(undefined);
+export const UserContext = createContext<UserContextProps | undefined>(
+  undefined
+);
 
 export const useUser = () => {
   const context = useContext(UserContext);
@@ -24,8 +26,8 @@ export const useUser = () => {
   return context;
 };
 
-export const UserContextProvider = ({ children, user }: ProviderProps) => {
-  const [userData, setUserData] = useState<UserSessionProps | null>(user);
+export const UserContextProvider = ({ children }: ProviderProps) => {
+  const [userData, setUserData] = useState<UserSessionProps | null>(null);
 
   return (
     <UserContext.Provider value={{ userData, setUserData }}>

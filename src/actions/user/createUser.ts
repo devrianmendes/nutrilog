@@ -4,7 +4,9 @@
 import { prismaClient } from "@/prisma";
 import { hash } from "bcrypt";
 import loginUser from "./loginUser";
+
 import UserDataFormatter from "@/functions/userDataFormatter";
+import { redirect } from "next/dist/server/api-utils";
 
 export default async function createUser(state: {}, formData: FormData) {
   const user = {

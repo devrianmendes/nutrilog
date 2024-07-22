@@ -8,13 +8,8 @@ export const metadata: Metadata = {
 };
 
 export default async function MinhaConta() {
-
-  const userData = async () => {
-    const a = await getUser();
-    console.log(a, "chamando no minha conta");
-  };
-
-  userData()
+  const data = await getUser();
+  console.log(data, "on minha conta");
 
   return (
     <main>
