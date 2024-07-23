@@ -7,7 +7,7 @@ import createUser from "@/actions/user/createUser";
 import Button from "../ui/form/Button";
 import Input from "../ui/form/Input";
 import Link from "next/link";
-import { stateCityList } from "@/util/estados-cidades";
+import { stateCityList } from "@/constants/estados-cidades";
 import { Span } from "../ui/span";
 
 const FormButton = () => {

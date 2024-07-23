@@ -1,17 +1,4 @@
-type UserFormatterProps = {
-  completeName: string;
-  password: string;
-  confirmPassword: string;
-  gender: string;
-  birth: string;
-  goal: string;
-  activity: string;
-  weight: string | number;
-  height: string | number;
-  userState: string;
-  userCity: string;
-  terms: boolean;
-};
+import { UserFormatterProps } from "@/types/types";
 
 export default function UserDataFormatter(user: UserFormatterProps) {
   user.birth = new Date(user.birth!).toISOString();

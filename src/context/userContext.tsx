@@ -1,21 +1,19 @@
 "use client";
 
 import { createContext, useContext, useState } from "react";
-import { UserSessionProps } from "@/util/types";
+import { UserSessionProps } from "@/types/types";
 
 type UserContextProps = {
-  userData: UserSessionProps | null;
-  setUserData: React.Dispatch<React.SetStateAction<UserSessionProps | null>>;
+  user: UserSessionProps | null;
+  setUserState: React.Dispatch<React.SetStateAction<UserSessionProps | null>>;
 };
 
 type ProviderProps = {
   children: React.ReactNode;
-  user?: UserSessionProps | null;
+  user: UserSessionProps | null;
 };
 
-export const UserContext = createContext<UserContextProps | undefined>(
-  undefined
-);
+const UserContext = createContext<UserContextProps | null>(null);
 
 export const useUser = () => {
   const context = useContext(UserContext);
@@ -23,14 +21,15 @@ export const useUser = () => {
   if (context === null) {
     throw new Error("useContext deve estar dentro do Provider");
   }
+  
   return context;
 };
 
-export const UserContextProvider = ({ children }: ProviderProps) => {
-  const [userData, setUserData] = useState<UserSessionProps | null>(null);
+export const UserContextProvider = ({ children, user }: ProviderProps) => {
+  const [userState, setUserState] = useState<UserSessionProps | null>(user);
 
   return (
-    <UserContext.Provider value={{ userData, setUserData }}>
+    <UserContext.Provider value={{ user: userState, setUserState }}>
       {children}
     </UserContext.Provider>
   );

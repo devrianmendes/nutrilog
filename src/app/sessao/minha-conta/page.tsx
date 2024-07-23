@@ -8,8 +8,6 @@ export const metadata: Metadata = {
 };
 
 export default async function MinhaConta() {
-  const data = await getUser();
-  console.log(data, "on minha conta");
 
   return (
     <main>

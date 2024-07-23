@@ -15,13 +15,12 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   const user = await getUser();
 
   return (
     <html lang="pt-BR">
       <body className="bg-bright">
-        <UserContextProvider user={user}>
+        <UserContextProvider user={user!}>
           <div>
             <Header />
             <main className="container m-auto">{children}</main>

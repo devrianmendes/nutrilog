@@ -14,6 +14,12 @@ export default async function getUser() {
       where: {
         id: validated,
       },
+      select: {
+        id: true,
+        email: true,
+        completeName: true,
+        role: true
+      }
     });
 
     return user;
