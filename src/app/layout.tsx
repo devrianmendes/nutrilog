@@ -24,7 +24,7 @@ export default async function RootLayout({
           <div>
             <Header />
             <main className="container m-auto">{children}</main>
-            <Footer />
+            {/* <Footer /> */}
           </div>
         </UserContextProvider>
       </body>

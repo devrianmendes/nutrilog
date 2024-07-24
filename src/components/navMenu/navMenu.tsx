@@ -15,7 +15,7 @@ export default function NavMenu() {
   return (
     <>
       {!user ? (
-        <nav>
+        <nav className="flex justify-center">
           <Link href="/criar-usuario">
             <Button buttonType="primary" extraClass="mr-1">
               Criar conta

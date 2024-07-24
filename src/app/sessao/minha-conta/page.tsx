@@ -1,4 +1,5 @@
 import getUser from "@/actions/user/getUser";
+import Meal from "@/components/dashboard/meal/meal";
 import Header from "@/components/header/header";
 import { Metadata } from "next";
 
@@ -11,7 +12,7 @@ export default async function MinhaConta() {
 
   return (
     <main>
-      <p className="text-white">minha conta</p>
+      <Meal />
     </main>
   );
 }

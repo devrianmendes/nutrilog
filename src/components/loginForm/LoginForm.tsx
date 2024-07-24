@@ -1,14 +1,12 @@
 "use client";
 
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 
 import loginUser from "@/actions/user/loginUser";
 
 import Button from "../ui/form/Button";
 import Input from "../ui/form/Input";
-import { redirect } from "next/navigation";
-import { useUser } from "@/context/userContext";
 import Link from "next/link";
 
 const FormButton = () => {
@@ -30,6 +28,7 @@ export default function LoginForm() {
     user: null,
   });
 
+  //VERIFICAR - Redirect não funciona, o menu não muda após o login
   useEffect(() => {
     if (state.ok) window.location.href = "/sessao/minha-conta";
   }, [state.ok]);

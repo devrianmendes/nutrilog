@@ -1,3 +1,7 @@
+export type ChildrenProps = {
+  children: React.ReactNode;
+}
+
 export type CreateUsersProps = {
   email: string;
   completeName: string;
