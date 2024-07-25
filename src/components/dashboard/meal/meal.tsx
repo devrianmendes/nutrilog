@@ -1,14 +1,23 @@
+import MealButtons from "./mealButtons";
 import MealHeader from "./mealHeader";
+import MealItem from "./mealItem";
 
-export default function Meal() {
+type MealProps = {
+  mealName: string;
+};
+
+export default function Meal({ mealName }: MealProps) {
   return (
-    <section className="bg-dark bg-opacity-10">
-      <MealHeader>Café da manhã</MealHeader>
-      <div>
-        {" "}
-      </div>
-      <div>
-        Adicionar Alimento
+    <section className="bg-dark bg-opacity-30 m-2">
+      <MealHeader>{mealName}</MealHeader>
+      <div className="p-1">
+        <div className="mt-5">
+          <MealItem />
+          <MealItem />
+        </div>
+        <div>
+          <MealButtons />
+        </div>
       </div>
     </section>
   );

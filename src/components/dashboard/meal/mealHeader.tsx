@@ -20,9 +20,9 @@ export default function MealHeader({
       </div>
       <div className="flex justify-between text-sm">
         <ul className="flex ">
-          <li className="mr-1">Carb: 0</li>
-          <li className="mr-1">Prot: 0</li>
-          <li className="mr-1">Gord: 0</li>
+          <li className="mr-1 text-sky-600">Carb: 0</li>
+          <li className="mr-1 text-red-500">Prot: 0</li>
+          <li className="mr-1 text-yellow-300">Gord: 0</li>
         </ul>
         <p className="bg-dark bg-opacity-70 text-lightGreen px-2 py-0.5">
           R$0,00

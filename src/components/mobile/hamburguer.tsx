@@ -1,9 +1,9 @@
 export default function Hamburguer() {
   return (
-    <div className="h-5 flex flex-col justify-between">
-      <div className="bg-dark w-7 h-0.5 rounded"></div>
-      <div className="bg-dark w-7 h-0.5 rounded"></div>
-      <div className="bg-dark w-7 h-0.5 rounded"></div>
+    <div className="h-10 flex flex-col p-2 justify-between hover:cursor-pointer">
+      <div className="bg-midGreen w-7 h-1 rounded"></div>
+      <div className="bg-midGreen w-7 h-1 rounded"></div>
+      <div className="bg-midGreen w-7 h-1 rounded"></div>
     </div>
   );
 }

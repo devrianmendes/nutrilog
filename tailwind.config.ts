@@ -13,18 +13,18 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      colors: {
+        dark: "#111111",
+        bright: "#fafafa",
+        lightGreen: "#C8E318",
+        midGreen: "#97C61E",
+        darkGreen: "#6CB125",
+        errorRed: "#ff0024",
+      },
     },
     fontFamily: {
-      secondary: ['Montserrat', 'sans-serif'],
+      secondary: ["Montserrat", "sans-serif"],
     },
-    colors: {
-      dark: '#111111',
-      bright: '#fafafa',
-      lightGreen: '#C8E318',
-      midGreen: '#97C61E',
-      darkGreen: '#6CB125',
-      errorRed: '#ff0024'
-    }
   },
   plugins: [],
 };

@@ -30,7 +30,7 @@ export default function LoginForm() {
 
   //VERIFICAR - Redirect não funciona, o menu não muda após o login
   useEffect(() => {
-    if (state.ok) window.location.href = "/sessao/minha-conta";
+    if (state.ok) window.location.href = "/sessao/dashboard";
   }, [state.ok]);
 
   return (

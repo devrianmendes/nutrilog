@@ -1,7 +1,7 @@
 // type ButtonType = React.ButtonHTMLAttributes<HTMLButtonElement>;
 type ButtonType = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   children: React.ReactNode;
-  buttonType: string;
+  buttonType?: string;
   extraClass?: string;
 };
 
@@ -22,7 +22,7 @@ export default function Button({
         </button>
       ) : (
         <button
-          className={`text-midGreen border-2 h-9 font-medium w-20 ${extraClass} hover:scale-110 duration-100`}
+          className={`text-midGreen border-midGreen border-2 h-9 font-medium w-32 ${extraClass} hover:scale-110 duration-100`}
           {...props}
         >
           {children}
