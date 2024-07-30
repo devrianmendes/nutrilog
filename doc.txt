@@ -6,3 +6,6 @@ Criar projeto next
 Instalados:
 jsonwebtoken - autenticação
 bcrypt & types/bcrypt- criptografia
+
+
+configurar pra enviar apertando enter

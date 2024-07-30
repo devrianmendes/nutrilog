@@ -13,6 +13,7 @@ export default function MealButtons() {
   };
 
   const handleSearch = () => {
+    
     console.log(food);
     setFood('');
 
@@ -31,7 +32,7 @@ export default function MealButtons() {
           />
           <input
             type="text"
-            className="bg-transparent p-2 focus:outline-none"
+            className="bg-transparent p-2 focus:outline-none w-full"
             value={food}
             onChange={(e) => setFood(e.target.value)}
           />

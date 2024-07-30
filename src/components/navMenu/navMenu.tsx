@@ -4,9 +4,13 @@ import Button from "../ui/form/Button";
 import { useUser } from "@/context/userContext";
 import LogoutUser from "@/actions/user/logoutUser";
 import Hamburguer from "../mobile/hamburguer";
+import { useResponsivity } from "@/context/responsivityContext";
+import MenuOptionsDesktop from "./menuOptionsDesktop";
+import { useEffect } from "react";
 
 export default function NavMenu() {
   const { user, setUserState } = useUser();
+  const context = useResponsivity();
 
   const handleLogout = async () => {
     await LogoutUser();
@@ -30,12 +34,33 @@ export default function NavMenu() {
         </nav>
       ) : (
         <div className="flex flex-col justify-evenly items-center">
-          <Hamburguer />
-          <Link href="/">
-            <Button extraClass="!w-20" buttonType="secondary" onClick={handleLogout}>
-              Sair
-            </Button>
-          </Link>
+          {context?.mobile ? (
+            <>
+              <Hamburguer />
+              <Link href="/">
+                <Button
+                  extraClass="!w-20"
+                  buttonType="secondary"
+                  onClick={handleLogout}
+                >
+                  Sair
+                </Button>
+              </Link>
+            </>
+          ) : (
+            <div className="flex items-center">
+              <MenuOptionsDesktop mobile={context!.mobile} />
+              <Link href="/">
+                <Button
+                  extraClass="!w-20"
+                  buttonType="secondary"
+                  onClick={handleLogout}
+                >
+                  Sair
+                </Button>
+              </Link>
+            </div>
+          )}
         </div>
       )}
     </>
