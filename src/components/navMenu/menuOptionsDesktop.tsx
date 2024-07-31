@@ -1,4 +1,3 @@
-import { ResponsivityProvider } from "@/context/responsivityContext";
 import Link from "next/link";
 
 type MenuProps = {
@@ -9,19 +8,22 @@ export default function MenuOptionsDesktop({ mobile }: MenuProps) {
   return (
     
     <ul className="p-5 flex font-semibold ">
-      <Link href="">
-        <li className="p-3 hover:text-midGreen duration-200">Minha conta</li>
+      <Link href="/sessao/dashboard">
+        <li className="p-3 hover:text-midGreen duration-200">Início</li>
+      </Link>
+      <Link href="/sessao/minha-conta">
+        <li className="p-3 hover:text-midGreen duration-200">Conta</li>
       </Link>
       <Link href="">
-        <li className="p-3 hover:text-midGreen duration-200">Meus alimentos</li>
+        <li className="p-3 hover:text-midGreen duration-200">Alimentos</li>
       </Link>
       <Link href="">
         <li className="p-3 hover:text-midGreen duration-200">
-          Minhas receitas
+          Receitas
         </li>
       </Link>
       <Link href="">
-        <li className="p-3 hover:text-midGreen duration-200">Meu histórico</li>
+        <li className="p-3 hover:text-midGreen duration-200">Histórico</li>
       </Link>
       <Link href="">
         <li className="p-3 hover:text-midGreen duration-200">Feed</li>

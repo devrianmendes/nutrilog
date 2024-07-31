@@ -4,7 +4,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 type ResponsivityProps = {
   children: React.ReactNode;
-  isMobile: ResponsivityProvider;
+  // isMobile: ResponsivityProvider;
 };
 
 export type ResponsivityProvider = {
@@ -23,7 +23,7 @@ export const useResponsivity = () => {
 
 export const ResponsivityProvider = ({
   children,
-  isMobile,
+  
 }: ResponsivityProps) => {
   const [mobile, setMobile] = useState(true);
   const [width, setWidth] = useState<number>(0);

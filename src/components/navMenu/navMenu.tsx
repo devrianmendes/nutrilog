@@ -1,12 +1,15 @@
 "use client";
+
 import Link from "next/link";
-import Button from "../ui/form/Button";
-import { useUser } from "@/context/userContext";
+
 import LogoutUser from "@/actions/user/logoutUser";
-import Hamburguer from "../mobile/hamburguer";
+
+import { useUser } from "@/context/userContext";
 import { useResponsivity } from "@/context/responsivityContext";
+
 import MenuOptionsDesktop from "./menuOptionsDesktop";
-import { useEffect } from "react";
+import Hamburguer from "../mobile/hamburguer";
+import Button from "../ui/form/Button";
 
 export default function NavMenu() {
   const { user, setUserState } = useUser();

@@ -1,6 +1,5 @@
-import getUser from "@/actions/user/getUser";
-import Meal from "@/components/dashboard/meal/meal";
-import Header from "@/components/header/header";
+import Subtitle from "@/components/ui/subtitle";
+import UpdateUserForm from "@/components/updateUserForm/updateUserForm";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -11,8 +10,9 @@ export const metadata: Metadata = {
 export default async function MinhaConta() {
 
   return (
-    <main>
-      <Meal />
+    <main className="flex flex-col items-center">
+      <Subtitle>Minha conta</Subtitle>
+      <UpdateUserForm />
     </main>
   );
 }

@@ -1,3 +1,5 @@
+import { Decimal } from "@prisma/client/runtime/library";
+
 export type ChildrenProps = {
   children: React.ReactNode;
 }
@@ -43,4 +45,21 @@ export type UserFormatterProps = {
   userState: string;
   userCity: string;
   terms: boolean;
+};
+
+export type UserDataProps = {
+  id: string;
+  email: string;
+  completeName: string;
+  // password: string;
+  // confirmPassword: string;
+  gender: string;
+  birth: string | Date;
+  goal: string;
+  activityLevel: string;
+  weight: number | Decimal;
+  height: number | Decimal;
+  state: string;
+  city: string;
+  role: string;
 };

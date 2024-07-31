@@ -2,12 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { useFormState, useFormStatus } from "react-dom";
+import Link from "next/link";
 
-import createUser from "@/actions/user/createUser";
+import { stateCityList } from "@/constants/places";
+import createUser from "@/actions/user/createUser"
+;
 import Button from "../ui/form/Button";
 import Input from "../ui/form/Input";
-import Link from "next/link";
-import { stateCityList } from "@/constants/estados-cidades";
 import { Span } from "../ui/span";
 
 const FormButton = () => {
@@ -282,7 +283,7 @@ export default function CreateUserForm() {
         ))}
       </select>
 
-      <label className="m-auto">
+      <label className="m-auto mb-3">
         <input
           className="mr-1"
           type="checkbox"
@@ -302,7 +303,14 @@ export default function CreateUserForm() {
       </label>
       <Span spanType="error">{state.error}</Span>
 
-      <p>Melhorar o confirmar senha</p>
+      <label className="m-auto">
+        <input className="mr-1" type="checkbox" />
+        <Span spanType="error">Aviso importante: </Span>
+        Alguns dados não poderão ser alterados e outros só poderão ser alterados
+        como evolução pessoal no painel de evoluções. Tenha certeza que estão
+        corretos.
+      </label>
+
       <FormButton />
       <Link href="/" className="m-auto text-midGreen hover:underline">
         Voltar para login

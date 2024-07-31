@@ -1,14 +1,13 @@
 import { cookies } from "next/headers";
 import validateToken from "./validateToken";
 import { prismaClient } from "@/prisma";
-import { UserDataFormatterToClient } from "@/functions/userDataFormatter";
-import { UserDataProps } from "@/types/types";
 
-export default async function getUser() {
+export default async function updateUser() {
   try {
     const token = cookies().get("Auth")?.value;
-    if (!token) return;
 
+    if (!token) return;
+    let user = {};
     const validated = await validateToken(token);
 
     const userResponse = await prismaClient.users.findFirst({
@@ -23,7 +22,9 @@ export default async function getUser() {
       },
     });
 
-    if (!userResponse) throw new Error("O usuário precisa estar logado.");
+    if (!userResponse) {
+      return null;
+    }
 
     const userDataResponse = await prismaClient.userData.findFirst({
       where: {
@@ -41,14 +42,21 @@ export default async function getUser() {
       },
     });
 
-    if (!userDataResponse) throw new Error("O usuário precisa estar logado.");
-
-    let user: UserDataProps = {
-      ...userResponse,
-      ...userDataResponse,
+    if (!userDataResponse) return null;
+    
+    user = {
+      id: userResponse.id,
+      email: userResponse.email,
+      completeName: userResponse.completeName,
+      weight: userDataResponse.weight,
+      height: userDataResponse.height,
+      birth: userDataResponse.birth,
+      goal: userDataResponse.goal,
+      activityLevel: userDataResponse.activityLevel,
+      gender: userDataResponse.gender,
+      city: userDataResponse.city,
+      state: userDataResponse.state,
     };
-
-    user = UserDataFormatterToClient(user);
 
     return user;
   } catch (error: unknown) {

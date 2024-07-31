@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import MenuCard from "./menuCard";
-import { useResponsivity } from "@/context/responsivityContext";
 
 export default function Hamburguer() {
   const [menu, setMenu] = useState(false);
@@ -34,7 +33,7 @@ export default function Hamburguer() {
         ></div>
       </div>
 
-      <MenuCard menu={menu} />
+      <MenuCard menu={menu} setMenu={setMenu}/>
     </div>
   );
 }

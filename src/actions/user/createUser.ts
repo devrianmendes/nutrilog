@@ -5,8 +5,9 @@ import { prismaClient } from "@/prisma";
 import { hash } from "bcrypt";
 import loginUser from "./loginUser";
 
-import UserDataFormatter from "@/functions/userDataFormatter";
-import { redirect } from "next/dist/server/api-utils";
+import {UserDataFormatterToClient, UserDataFormatterToServer} from "@/functions/userDataFormatter";
+import { redirect } from "next/navigation";
+
 
 export default async function createUser(state: {}, formData: FormData) {
   const user = {
@@ -65,7 +66,7 @@ export default async function createUser(state: {}, formData: FormData) {
       terms: user.terms,
     };
 
-    UserDataFormatter(validUser);
+    UserDataFormatterToServer(validUser);
 
     const emailAlreadyExist = await prismaClient.users.findFirst({
       where: {
@@ -114,6 +115,7 @@ export default async function createUser(state: {}, formData: FormData) {
       error: "",
       user: postUser,
     };
+
   } catch (error: unknown) {
     if (error instanceof Error) {
       return {

@@ -8,7 +8,7 @@ type MealProps = {
 
 export default function Meal({ mealName }: MealProps) {
   return (
-    <section className="bg-dark bg-opacity-30 m-2">
+    <section className="bg-dark bg-opacity-30 mb-2">
       <MealHeader>{mealName}</MealHeader>
       <div className="p-1">
         <div className="mt-5">

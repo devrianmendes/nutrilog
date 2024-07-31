@@ -15,14 +15,14 @@ export default function Button({
     <>
       {buttonType === "primary" ? (
         <button
-          className={`text-bright bg-midGreen h-9 font-medium w-32 ${extraClass} hover:scale-110 duration-100`}
+          className={`text-bright bg-midGreen h-9 font-medium min-w-32 px-3 ${extraClass} hover:scale-110 duration-100`}
           {...props}
         >
           {children}
         </button>
       ) : (
         <button
-          className={`text-midGreen border-midGreen border-2 h-9 font-medium w-32 ${extraClass} hover:scale-110 duration-100`}
+          className={`text-midGreen border-midGreen border-2 h-9 font-medium min-w-32 px-3 ${extraClass} hover:scale-110 duration-100`}
           {...props}
         >
           {children}
@@ -30,5 +30,4 @@ export default function Button({
       )}
     </>
   );
-  // return <button {...props}>{children}</button>;
 }

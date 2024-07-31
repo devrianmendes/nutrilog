@@ -4,6 +4,7 @@ import { prismaClient } from "@/prisma";
 import { compare } from "bcrypt";
 import { sign } from "jsonwebtoken";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 export default async function loginUser(state: {}, formData: FormData) {
   const user = {
@@ -82,5 +83,5 @@ export default async function loginUser(state: {}, formData: FormData) {
         user: null,
       };
     }
-  }
+  } 
 }
