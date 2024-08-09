@@ -5,14 +5,19 @@ import { useFormState, useFormStatus } from "react-dom";
 
 import loginUser from "@/actions/user/loginUser";
 
-import Button from "../ui/form/Button";
-import Input from "../ui/form/Input";
+import Button from "../ui/button";
+import Input from "../ui/input";
 import Link from "next/link";
 
 const FormButton = () => {
   const { pending } = useFormStatus();
   return (
-    <Button buttonType="primary" extraClass="m-auto mt-5" type="submit" disabled={pending}>
+    <Button
+      buttonType="primary"
+      extraClass="m-auto mt-5"
+      type="submit"
+      disabled={pending}
+    >
       {pending ? "Entrando..." : "Entrar"}
     </Button>
   );
@@ -57,7 +62,10 @@ export default function LoginForm() {
         onChange={(e) => setPassword(e.target.value)}
       ></Input>
       <FormButton />
-      <Link href="/criar-usuario" className="m-auto text-midGreen hover:underline">
+      <Link
+        href="/criar-usuario"
+        className="m-auto text-midGreen hover:underline"
+      >
         Não possui conta? Cadastre-se
       </Link>
       <p>{state.error}</p>

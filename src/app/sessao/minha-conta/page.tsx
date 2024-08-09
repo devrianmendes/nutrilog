@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default async function MinhaConta() {
 
   return (
-    <main className="flex flex-col items-center">
+    <main className="flex flex-col">
       <Subtitle>Minha conta</Subtitle>
       <UpdateUserForm />
     </main>

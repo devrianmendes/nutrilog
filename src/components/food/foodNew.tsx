@@ -1,5 +1,5 @@
 import Button from "../ui/button";
-import Input from "../ui/form/Input";
+import Input from "../ui/input";
 import FoodHeader from "./foodHeader";
 
 export default function FoodNew() {
@@ -26,15 +26,19 @@ export default function FoodNew() {
         </div>
         {/* <Input placeholder="Modo de preparo" /> */}
         <select className="w-full ml-0.5 border-solid border border-midGreen leading-7 mb-2 px-2 focus:outline-midGreen">
-            <option disabled>Modo de preparo</option>
-            <option>Cozido</option>
-            <option>Grelhado</option>
-            <option>Frito</option>
-            <option>Assado</option>
+          <option disabled>Modo de preparo</option>
+          <option>Cozido</option>
+          <option>Grelhado</option>
+          <option>Frito</option>
+          <option>Assado</option>
         </select>
         <div className="flex">
-            <Button extraClass="mr-0.5">Salvar</Button>
-            <Button extraClass="ml-0.5">Descartar</Button>
+          <Button buttonType="tertiary" extraClass="mr-0.5">
+            Salvar
+          </Button>
+          <Button buttonType="tertiary" extraClass="ml-0.5">
+            Descartar
+          </Button>
         </div>
       </div>
     </div>

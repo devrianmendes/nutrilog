@@ -5,10 +5,9 @@ import { useFormState, useFormStatus } from "react-dom";
 import Link from "next/link";
 
 import { stateCityList } from "@/constants/places";
-import createUser from "@/actions/user/createUser"
-;
-import Button from "../ui/form/Button";
-import Input from "../ui/form/Input";
+import createUser from "@/actions/user/createUser";
+import Button from "../ui/button";
+import Input from "../ui/input";
 import { Span } from "../ui/span";
 
 const FormButton = () => {

@@ -9,7 +9,7 @@ import { useResponsivity } from "@/context/responsivityContext";
 
 import MenuOptionsDesktop from "./menuOptionsDesktop";
 import Hamburguer from "../mobile/hamburguer";
-import Button from "../ui/form/Button";
+import Button from "../ui/button";
 
 export default function NavMenu() {
   const { user, setUserState } = useUser();

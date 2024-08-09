@@ -7,8 +7,8 @@ import { useUser } from "@/context/userContext";
 
 import { stateCityList } from "@/constants/places";
 
-import Button from "../ui/form/Button";
-import Input from "../ui/form/Input";
+import Button from "../ui/button";
+import Input from "../ui/input";
 import { Span } from "../ui/span";
 
 const FormButton = () => {

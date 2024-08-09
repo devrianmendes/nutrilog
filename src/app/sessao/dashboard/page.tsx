@@ -1,4 +1,5 @@
-import Meal from "@/components/dashboard/meal/meal";
+import Meal from "@/components/meal/meal";
+import Subtitle from "@/components/ui/subtitle";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -10,6 +11,7 @@ export default async function MinhaConta() {
 
   return (
     <main>
+      <Subtitle>Registre seu dia</Subtitle>
       <Meal mealName="Café da manhã"/>
       <Meal mealName="Colação"/>
       <Meal mealName="Almoço"/>

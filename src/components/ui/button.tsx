@@ -1,14 +1,41 @@
-import { ChildrenProps } from "@/types/types";
-
-type ButtonProps = {
+// type ButtonType = React.ButtonHTMLAttributes<HTMLButtonElement>;
+type ButtonType = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   children: React.ReactNode;
+  buttonType?: string;
   extraClass?: string;
-}
+};
 
-export default function Button({children, extraClass}: ButtonProps) {
+export default function Button({
+  children,
+  buttonType,
+  extraClass,
+  ...props
+}: ButtonType) {
   return (
-    <button className={`w-full p-2 bg-stone-100 font-semibold ${extraClass}`}>
-      {children}
-    </button>
+    <>
+      {buttonType === "primary" && (
+        <button
+          className={`text-bright bg-midGreen h-9 font-medium min-w-32 px-3 ${extraClass} hover:scale-110 duration-100`}
+          {...props}
+        >
+          {children}
+        </button>
+      )}
+      {buttonType === "secondary" && (
+        <button
+          className={`text-midGreen border-midGreen border-2 h-9 font-medium min-w-32 px-3 ${extraClass} hover:scale-110 duration-100`}
+          {...props}
+        >
+          {children}
+        </button>
+      )}
+      {buttonType === "tertiary" && (
+        <button
+          className={`w-full p-2 bg-stone-100 font-semibold ${extraClass}`}
+        >
+          {children}
+        </button>
+      )}
+    </>
   );
 }
