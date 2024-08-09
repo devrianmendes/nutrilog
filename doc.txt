@@ -14,3 +14,4 @@ verificar se o email é valido na hora de criar usuario
 colocar um windowlog perguntando se os dados estão corretos pois alguns só poderam ser alterados como evoluçaõ
 verificar os tipos de usuario, deixar apenas o usuário com todas as informaões
 estudar sobre o redirect
+arrumar o problema de quando expira o usuário

@@ -6,7 +6,6 @@ type MenuProps = {
 
 export default function MenuOptionsDesktop({ mobile }: MenuProps) {
   return (
-    
     <ul className="p-5 flex font-semibold ">
       <Link href="/sessao/dashboard">
         <li className="p-3 hover:text-midGreen duration-200">Início</li>
@@ -14,13 +13,11 @@ export default function MenuOptionsDesktop({ mobile }: MenuProps) {
       <Link href="/sessao/minha-conta">
         <li className="p-3 hover:text-midGreen duration-200">Conta</li>
       </Link>
-      <Link href="">
+      <Link href="/sessao/meus-alimentos">
         <li className="p-3 hover:text-midGreen duration-200">Alimentos</li>
       </Link>
       <Link href="">
-        <li className="p-3 hover:text-midGreen duration-200">
-          Receitas
-        </li>
+        <li className="p-3 hover:text-midGreen duration-200">Receitas</li>
       </Link>
       <Link href="">
         <li className="p-3 hover:text-midGreen duration-200">Histórico</li>
@@ -31,7 +28,6 @@ export default function MenuOptionsDesktop({ mobile }: MenuProps) {
       <Link href="">
         <li className="p-3 hover:text-midGreen duration-200">Blog</li>
       </Link>
-      
     </ul>
   );
 }

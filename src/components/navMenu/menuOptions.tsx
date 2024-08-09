@@ -16,18 +16,16 @@ export default function MenuOptions({
         <li className="p-3 hover:text-midGreen duration-200">Início</li>
       </Link>
       <Link href="/sessao/minha-conta" onClick={handleClick}>
-        <li className="p-3 hover:text-midGreen duration-200 ">Minha conta</li>
+        <li className="p-3 hover:text-midGreen duration-200 ">Conta</li>
+      </Link>
+      <Link href="/sessao/meus-alimentos" onClick={handleClick}>
+        <li className="p-3 hover:text-midGreen duration-200">Alimentos</li>
       </Link>
       <Link href="" onClick={handleClick}>
-        <li className="p-3 hover:text-midGreen duration-200">Meus alimentos</li>
+        <li className="p-3 hover:text-midGreen duration-200">Receitas</li>
       </Link>
       <Link href="" onClick={handleClick}>
-        <li className="p-3 hover:text-midGreen duration-200">
-          Minhas receitas
-        </li>
-      </Link>
-      <Link href="" onClick={handleClick}>
-        <li className="p-3 hover:text-midGreen duration-200">Meu histórico</li>
+        <li className="p-3 hover:text-midGreen duration-200">Histórico</li>
       </Link>
       <Link href="" onClick={handleClick}>
         <li className="p-3 hover:text-midGreen duration-200">Feed</li>

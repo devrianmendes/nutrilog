@@ -1,22 +1,16 @@
 import { ChildrenProps } from "@/types/types";
 
-export default function MealHeader({
-  children,
-  mealKcal,
-  mealCarb,
-  mealProt,
-  mealGord,
-}: ChildrenProps) {
+export default function FoodHeader({ children }: ChildrenProps) {
   return (
     <header className="bg-midGreen py-1 px-2">
       <div className="flex justify-between text-bright">
         <div className="flex items-center">
           <h3 className="font-bold mr-2">{children}</h3>
-          <div>
-            <input type="time" className="bg-midGreen" />
-          </div>
         </div>
-        <div className="font-medium">{mealKcal} 100 Kcal</div>
+        <div className="font-medium flex">
+          <p className="mr-2">100g</p>
+          <p>100Kcal</p>
+        </div>
       </div>
       <div className="flex justify-between text-sm">
         <ul className="flex ">

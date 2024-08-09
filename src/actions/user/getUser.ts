@@ -3,6 +3,7 @@ import validateToken from "./validateToken";
 import { prismaClient } from "@/prisma";
 import { UserDataFormatterToClient } from "@/functions/userDataFormatter";
 import { UserDataProps } from "@/types/types";
+import LogoutUser from "./logoutUser";
 
 export default async function getUser() {
   try {
@@ -52,6 +53,7 @@ export default async function getUser() {
 
     return user;
   } catch (error: unknown) {
-    throw new Error("Usuário inválido.");
+    LogoutUser();
+    // throw new Error("Usuário inválido.");
   }
 }
