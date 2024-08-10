@@ -6,7 +6,7 @@ export default function FoodPage() {
   return (
     <main className="flex flex-col ">
       <div className="flex justify-between">
-        <Subtitle>Alimentos</Subtitle>
+        <Subtitle>Meus alimentos</Subtitle>
         <select className="border-solid border border-midGreen leading-7 mb-2 px-2 focus:outline-midGreen">
           <option disabled>Filtro...</option>
           <option>Todos</option>

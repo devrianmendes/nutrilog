@@ -16,7 +16,7 @@ export default function MenuOptionsDesktop({ mobile }: MenuProps) {
       <Link href="/sessao/meus-alimentos">
         <li className="p-3 hover:text-midGreen duration-200">Alimentos</li>
       </Link>
-      <Link href="">
+      <Link href="/sessao/minhas-receitas">
         <li className="p-3 hover:text-midGreen duration-200">Receitas</li>
       </Link>
       <Link href="">

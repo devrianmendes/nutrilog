@@ -21,7 +21,7 @@ export default function MenuOptions({
       <Link href="/sessao/meus-alimentos" onClick={handleClick}>
         <li className="p-3 hover:text-midGreen duration-200">Alimentos</li>
       </Link>
-      <Link href="" onClick={handleClick}>
+      <Link href="/sessao/minhas-receitas" onClick={handleClick}>
         <li className="p-3 hover:text-midGreen duration-200">Receitas</li>
       </Link>
       <Link href="" onClick={handleClick}>
