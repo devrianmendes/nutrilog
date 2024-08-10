@@ -1,56 +1,45 @@
 "use client";
 import { useState } from "react";
 
-import { BsSearch } from "react-icons/bs";
+import SearchBar from "../ui/searchBar";
+import Button from "../ui/button";
 
 export default function MealButtons() {
   const [hidden, setHidden] = useState(true);
-  const [food, setFood] = useState("");
+  const [active, setActive] = useState<string | null>(null);
 
-  const handleClick = () => {
-    setHidden(!hidden);
-    setFood('');
-  };
+  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const clickedButton = e.currentTarget.id;
 
-  const handleSearch = () => {
-    
-    console.log(food);
-    setFood('');
-
+    if (active === clickedButton) {
+      setHidden(true);
+      setActive(null);
+    } else {
+      setHidden(false);
+      setActive(clickedButton);
+    }
   };
 
   return (
     <div className="flex flex-col text-center font-medium">
-      {hidden ? (
-        <input type="text" hidden />
-      ) : (
-        <div className="flex items-center">
-          <BsSearch
-            size={20}
-            onClick={handleSearch}
-            className="hover:cursor-pointer"
-          />
-          <input
-            type="text"
-            className="bg-transparent p-2 focus:outline-none w-full"
-            value={food}
-            onChange={(e) => setFood(e.target.value)}
-          />
-        </div>
-      )}
+      {hidden ? <input type="text" hidden /> : <SearchBar active={active!} />}
       <div className="flex justify-evenly w-full">
-        <button
-          onClick={handleClick}
-          className="w-full p-2 mr-1 bg-bright bg-opacity-50"
-        >
-          + Alimento
-        </button>
-        <button
-          onClick={handleClick}
-          className="w-full p-2 bg-bright bg-opacity-50"
-        >
-          + Receita
-        </button>
+        <div className="w-full mr-0.5" id="alimento" onClick={handleClick}>
+          <Button
+            buttonType="tertiary"
+            extraClass={active === "alimento" ? "!bg-midGreen text-bright" : ""}
+          >
+            + Alimento
+          </Button>
+        </div>
+        <div className="w-full ml-0.5" id="receita" onClick={handleClick}>
+          <Button
+            buttonType="tertiary"
+            extraClass={active === "receita" ? "!bg-midGreen text-bright" : ""}
+          >
+            + Receita
+          </Button>
+        </div>
       </div>
     </div>
   );

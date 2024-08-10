@@ -1,6 +1,6 @@
 export default function MealItem() {
   return (
-    <div className="mb-1 p-1 bg-bright bg-opacity-60">
+    <div className="mb-1 p-1 bg-bright">
       <div className="flex justify-between font-semibold">
         <h4 className="">Pão de forma integral</h4>
         <p>Kcal</p>
