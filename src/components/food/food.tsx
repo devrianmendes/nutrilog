@@ -9,7 +9,6 @@ export default function Food() {
         <FoodHeader>Peito de frango (cozido)</FoodHeader>
         <FoodFooter />
       </div>
-      <FoodNew />
     </section>
   );
 }

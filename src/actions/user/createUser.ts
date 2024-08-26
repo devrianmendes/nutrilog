@@ -70,7 +70,7 @@ export default async function createUser(state: {}, formData: FormData) {
 
     const emailAlreadyExist = await prismaClient.users.findFirst({
       where: {
-        email: user.email,
+        email: validUser.email,
       },
     });
 
@@ -79,12 +79,14 @@ export default async function createUser(state: {}, formData: FormData) {
     }
 
     const saltRounds = 10;
-    const hashedPassword = await hash(user.password, saltRounds);
+    const hashedPassword = await hash(validUser.password, saltRounds);
+
+    console.log(validUser)
 
     const postUser = await prismaClient.users.create({
       data: {
-        completeName: user.completeName,
-        email: user.email,
+        completeName: validUser.completeName,
+        email: validUser.email,
         password: hashedPassword,
       },
       select: {
@@ -97,16 +99,18 @@ export default async function createUser(state: {}, formData: FormData) {
     const postUserData = await prismaClient.userData.create({
       data: {
         userId: postUser.id,
-        height: user.height,
-        weight: user.weight,
-        birth: user.birth,
-        goal: user.goal,
-        activityLevel: user.activity,
-        gender: user.gender,
-        state: user.userState,
-        city: user.userCity,
+        height: validUser.height,
+        weight: validUser.weight,
+        birth: validUser.birth,
+        goal: validUser.goal,
+        activityLevel: validUser.activity,
+        gender: validUser.gender,
+        state: validUser.userState,
+        city: validUser.userCity,
       },
     });
+
+    console.log(postUserData, 'postuserData')
 
     await loginUser({ ok: true, error: "", data: null }, formData);
 

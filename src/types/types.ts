@@ -2,7 +2,7 @@ import { Decimal } from "@prisma/client/runtime/library";
 
 export type ChildrenProps = {
   children: React.ReactNode;
-}
+};
 
 export type CreateUsersProps = {
   email: string;
@@ -62,4 +62,14 @@ export type UserDataProps = {
   state: string;
   city: string;
   role: string;
+};
+
+export type NewFoodProps = {
+  name: string;
+  kcal: number;
+  carb: number;
+  prot: number;
+  gord: number;
+  typeCount: string;
+  prepareMode: string;
 };

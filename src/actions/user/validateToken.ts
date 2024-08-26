@@ -1,3 +1,5 @@
+"use server"
+
 import { verify } from "jsonwebtoken";
 
 export default async function validateToken(token: string): Promise<string> {

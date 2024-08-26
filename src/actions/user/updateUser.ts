@@ -1,3 +1,5 @@
+"use server"
+
 import { cookies } from "next/headers";
 import validateToken from "./validateToken";
 import { prismaClient } from "@/prisma";

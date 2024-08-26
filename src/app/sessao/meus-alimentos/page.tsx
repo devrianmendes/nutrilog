@@ -1,8 +1,18 @@
+"use client";
 import Food from "@/components/food/food";
+import FoodNew from "@/components/food/foodNew";
 import Button from "@/components/ui/button";
 import Subtitle from "@/components/ui/subtitle";
+import { useState } from "react";
 
 export default function FoodPage() {
+  const [newFood, setNewFood] = useState(false);
+
+  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    setNewFood(!newFood)
+    console.log(newFood)
+  }
+
   return (
     <main className="flex flex-col ">
       <div className="flex justify-between">
@@ -15,10 +25,14 @@ export default function FoodPage() {
           <option>Gorduras</option>
         </select>
       </div>
-      <Food />
-      <Button extraClass="m-auto" buttonType="primary">
-        Adicionar alimento
-      </Button>
+
+      {newFood ? <FoodNew /> : null}
+
+      <div onClick={handleClick}>
+        <Button extraClass="m-auto" buttonType="primary">
+          {!newFood ? "Adicionar alimento" : "Descartar"}
+        </Button>
+      </div>
     </main>
   );
 }

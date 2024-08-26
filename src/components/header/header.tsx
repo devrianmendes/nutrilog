@@ -9,7 +9,7 @@ import logo from "@/assets/nutrilog-logo.png";
 import getUser from "@/actions/user/getUser";
 
 export default async function Header() {
-  const user = await getUser();
+  // const user = await getUser();
   return (
     <header className="h-1/5 text-dark p-4 mb-10 border-b border-b-midGreen">
       <div className="flex justify-between container m-auto">

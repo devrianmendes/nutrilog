@@ -1,3 +1,5 @@
+"use server";
+
 import { cookies } from "next/headers";
 import validateToken from "./validateToken";
 import { prismaClient } from "@/prisma";
@@ -54,6 +56,6 @@ export default async function getUser() {
     return user;
   } catch (error: unknown) {
     LogoutUser();
-    // throw new Error("Usuário inválido.");
+    throw new Error("Usuário inválido.");
   }
 }
