@@ -70,6 +70,8 @@ export type NewFoodProps = {
   carb: number;
   prot: number;
   gord: number;
+  banner: string;
   typeCount: string;
   prepareMode: string;
+  foodGroup: string;
 };
