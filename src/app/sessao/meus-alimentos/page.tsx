@@ -1,5 +1,6 @@
 "use client";
 import Food from "@/components/food/food";
+import FoodList from "@/components/food/foodList/foodList";
 import FoodNew from "@/components/food/foodNew";
 import Button from "@/components/ui/button";
 import Subtitle from "@/components/ui/subtitle";
@@ -26,6 +27,7 @@ export default function FoodPage() {
         </select>
       </div>
 
+      <FoodList />
       {newFood ? <FoodNew /> : null}
 
       <div onClick={handleClick}>

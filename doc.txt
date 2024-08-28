@@ -13,7 +13,7 @@ criar uma tabela para armazenar a alimentação diária de cada usuário
 adicionar typeCount no foodItem no banco de dados, para salvar se é unidade, 100g, etc... (ver se é a melhor aproximação)
 
 Food
-Adicionar o campo (tipo de alimento) no form de adicionar alimento
+
 
 Formularios
 configurar pra enviar apertando enter
@@ -22,6 +22,7 @@ verificar se o email é valido na hora de criar usuario
 
 verificar os tipos de usuario, deixar apenas o usuário com todas as informaões
 
+colocar um pop-up pra lidar com erros
 arrumar o problema de quando expira o usuário
 fazer a opção selecionada(ativa) do navMenu aberto ficar verde
 colocar opção de envio de foto do usuário (minha conta) e do alimento (ao Criar o alimento)

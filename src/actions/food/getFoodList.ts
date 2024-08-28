@@ -1,0 +1,19 @@
+"use server";
+
+import { prismaClient } from "@/prisma";
+import getUser from "../user/getUser";
+
+export default async function getFoodList() {
+  try {
+    const user = await getUser();
+    if (!user) throw new Error("Usuário não está logado.");
+ 
+    const getList = await prismaClient.foodItems.findMany({
+      where: {
+        createdBy: user.id
+      },
+    });
+
+    return getList;
+  } catch (error) {}
+}

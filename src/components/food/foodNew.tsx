@@ -31,7 +31,8 @@ export default function FoodNew() {
   const [foodGroup, setFoodGroup] = useState("");
 
   const handleClick = async (e: React.MouseEvent<HTMLDivElement>) => {
-    await newFood(food);
+    const teste = await newFood(food);
+    console.log(teste)
 
     // const id = e.currentTarget.id;
 
@@ -49,7 +50,7 @@ export default function FoodNew() {
     //   console.log(food, 'after clean')
 
     // }
-    console.log(food);
+    // console.log(food);
   };
 
   useEffect(() => {
@@ -108,7 +109,7 @@ export default function FoodNew() {
           />
           <div className="w-full flex">
             <select
-              className="w-full ml-0.5 border-solid border border-midGreen leading-7 mb-2 px-2 focus:outline-midGreen"
+              className="w-full mx-0.5 border-solid border border-midGreen leading-7 mb-2 px-2 focus:outline-midGreen"
               name="typeCount"
               value={typeCount.type}
               onChange={(e) =>
@@ -125,7 +126,7 @@ export default function FoodNew() {
               <option value="g">Grama</option>
             </select>
             <Input
-              extraClass="w-full mr-0.5"
+              extraClass="w-full mx-0.5"
               placeholder="Quantidade"
               type="text"
               value={typeCount.value}

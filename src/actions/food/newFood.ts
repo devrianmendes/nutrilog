@@ -1,29 +1,22 @@
 "use server";
 
-import { foodGroups } from "@/constants/foodGroups";
 import { prismaClient } from "@/prisma";
 import { NewFoodProps } from "@/types/types";
 import getUser from "../user/getUser";
 
 export default async function newFood(food: NewFoodProps) {
-  // console.log(food.name);
-  // console.log(food.kcal);
-  // console.log(food.carb);
-  // console.log(food.prot);
-  // console.log(food.gord);
-  // console.log(food.typeCount);
-  // console.log(food.prepareMode);
-  // console.log(food);
-
   try {
     const user = await getUser();
-    if (!user) return Error;
+
+    if (!user) throw new Error("Usuário inválido.");
+
     const getCategory = await prismaClient.foodCategory.findFirst({
       where: {
         name: food.foodGroup,
       },
     });
-    if (!getCategory) return Error;
+
+    if (!getCategory) throw new Error("Erro ao cadastrar categoria.");
 
     const setFood = await prismaClient.foodItems.create({
       data: {
@@ -33,8 +26,16 @@ export default async function newFood(food: NewFoodProps) {
         foodCategoryId: getCategory.id,
         createdBy: user.id,
       },
+      select: {
+        name: true
+      }
     });
+
+    if (!setFood) throw new Error("Erro ao cadastrar alimento.");
+    console.log(setFood)
+    return { ok: true, status: 200, message: `Alimento ${setFood.name} cadastrado.`}
   } catch (error: unknown) {
-    console.log(error);
+    if (error instanceof Error)
+      return { ok: false, status: 400, message: error.message };
   }
 }
