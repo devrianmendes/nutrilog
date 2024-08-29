@@ -10,7 +10,7 @@ export default function FoodFooter() {
         <Button buttonType="tertiary" extraClass="mr-0.5">
           Públicar
         </Button>
-        {/* <span>
+        <span>
             <IoCheckboxSharp color="green" />
           </span>
           <span>
@@ -18,7 +18,7 @@ export default function FoodFooter() {
           </span>
           <span>
             <MdDangerous color="red" />
-          </span> */}
+          </span>
         <Button buttonType="tertiary" extraClass="ml-0.5">
           Apagar
         </Button>

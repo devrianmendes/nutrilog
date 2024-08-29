@@ -7,8 +7,14 @@ import FoodHeader from "./foodHeader";
 import newFood from "@/actions/food/newFood";
 import { NewFoodProps } from "@/types/types";
 import { foodGroups } from "@/constants/foodGroups";
+import toast from "react-hot-toast";
 
-export default function FoodNew() {
+type UpdateProps = {
+  setListUpdate: React.Dispatch<React.SetStateAction<boolean>>;
+  listUpdate: boolean;
+};
+
+export default function FoodNew({ setListUpdate, listUpdate }: UpdateProps) {
   const [food, setFood] = useState<NewFoodProps>({
     name: "",
     kcal: 0,
@@ -16,7 +22,8 @@ export default function FoodNew() {
     prot: 0,
     gord: 0,
     banner: "",
-    typeCount: "",
+    quantity: 100,
+    unity: "",
     prepareMode: "",
     foodGroup: "",
   });
@@ -26,31 +33,19 @@ export default function FoodNew() {
   const [gord, setGord] = useState<number | string>("");
   const [kcal, setKcal] = useState<number | string>("");
   const [banner, setBanner] = useState("");
-  const [typeCount, setTypeCount] = useState({ type: "", value: "" });
+  const [unity, setUnity] = useState("");
+  const quantity = 100;
   const [prepareMode, setPrepareMode] = useState("");
   const [foodGroup, setFoodGroup] = useState("");
 
-  const handleClick = async (e: React.MouseEvent<HTMLDivElement>) => {
-    const teste = await newFood(food);
-    console.log(teste)
-
-    // const id = e.currentTarget.id;
-
-    // if (id === "clearfood") {
-    //   console.log(food, 'before clean')
-    //   setFood({
-    //     name: "",
-    //     kcal: 0,
-    //     carb: 0,
-    //     prot: 0,
-    //     gord: 0,
-    //     typeCount: "",
-    //     prepareMode: "",
-    //   });
-    //   console.log(food, 'after clean')
-
-    // }
-    // console.log(food);
+  const handleClick = async () => {
+    const setNewFood = await newFood(food);
+    if (setNewFood.ok) {
+      toast.success(setNewFood.message);
+      setListUpdate(!listUpdate);
+    } else {
+      toast.error(setNewFood.message);
+    }
   };
 
   useEffect(() => {
@@ -61,11 +56,12 @@ export default function FoodNew() {
       prot: +prot,
       gord: +gord,
       banner: "",
-      typeCount: (typeCount.value + typeCount.type).toString(),
+      quantity: quantity,
+      unity: unity,
       prepareMode: prepareMode,
-      foodGroup: ((+foodGroup) + 1).toString(),
+      foodGroup: (+foodGroup + 1).toString(),
     });
-  }, [name, carb, prot, gord, kcal, typeCount, prepareMode]);
+  }, [name, kcal, carb, prot, gord, banner, unity, prepareMode, foodGroup]);
 
   return (
     <div className="mb-5">
@@ -108,35 +104,31 @@ export default function FoodNew() {
             onChange={(e) => setKcal(e.target.value)}
           />
           <div className="w-full flex">
+            <Input
+              extraClass="w-full mx-0.5"
+              placeholder="100"
+              type="number"
+              disabled
+              // value={typeCount.value}
+              // onChange={(e) =>
+              //   setTypeCount((prevState) => ({
+              //     ...prevState,
+              //     value: e.target.value,
+              //   }))
+              // }
+            />
             <select
               className="w-full mx-0.5 border-solid border border-midGreen leading-7 mb-2 px-2 focus:outline-midGreen"
               name="typeCount"
-              value={typeCount.type}
-              onChange={(e) =>
-                setTypeCount((prevState) => ({
-                  ...prevState,
-                  type: e.target.value,
-                }))
-              }
+              value={unity}
+              onChange={(e) => setUnity(e.target.value)}
             >
               <option value="" disabled>
                 Medida
               </option>
-              <option value="un">Unidade</option>
-              <option value="g">Grama</option>
+              <option value="g">Gramas</option>
+              <option value="ml">Mililitros</option>
             </select>
-            <Input
-              extraClass="w-full mx-0.5"
-              placeholder="Quantidade"
-              type="text"
-              value={typeCount.value}
-              onChange={(e) =>
-                setTypeCount((prevState) => ({
-                  ...prevState,
-                  value: e.target.value,
-                }))
-              }
-            />
           </div>
         </div>
         <textarea

@@ -2,9 +2,12 @@
 
 import getFoodList from "@/actions/food/getFoodList";
 import { useEffect, useState } from "react";
+import Food from "../food";
+import { NewFoodProps } from "@/types/foodTypes";
 
-export default function FoodList() {
-  const [list, setList] = useState([{}]);
+export default function FoodList({listUpdate}: {listUpdate: boolean}) {
+  const [list, setList] = useState<NewFoodProps[]>([]);
+
   useEffect(() => {
     const loadList = async () => {
       const getList = await getFoodList();
@@ -12,12 +15,12 @@ export default function FoodList() {
       setList(getList);
     };
     loadList();
-  }, []);
-  console.log(list)
+  }, [listUpdate]);
+
 
   return <ul>
     {list.map((eachItem, index) => (
-      <p>{eachItem.name}</p>
+      <Food data={eachItem} />
     ))}
   </ul>;
 }

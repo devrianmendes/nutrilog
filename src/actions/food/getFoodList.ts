@@ -5,15 +5,26 @@ import getUser from "../user/getUser";
 
 export default async function getFoodList() {
   try {
-    const user = await getUser();
-    if (!user) throw new Error("Usuário não está logado.");
+    // const user = await getUser();
+    // if (!user) throw new Error("Usuário não está logado.");
  
-    const getList = await prismaClient.foodItems.findMany({
-      where: {
-        createdBy: user.id
-      },
-    });
+    // const getList = await prismaClient.foodItems.findMany({
+    //   where: {
+    //     createdBy: user.id
+    //   },
+    // });
 
-    return getList;
-  } catch (error) {}
+    // return getList;
+
+    const setPreparation = await prismaClient.preparation.createMany({
+      data: [
+        {
+          name: "fritura",
+          additionalCalories: 
+        },
+      ]
+    })
+  } catch (error) {
+
+  }
 }

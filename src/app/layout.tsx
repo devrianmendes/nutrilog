@@ -1,9 +1,16 @@
 import type { Metadata } from "next";
+
 import "./globals.css";
+
 import { UserContextProvider } from "@/context/userContext";
-import Header from "@/components/header/header";
-import getUser from "@/actions/user/getUser";
 import { ResponsivityProvider } from "@/context/responsivityContext";
+
+import getUser from "@/actions/user/getUser";
+
+import Header from "@/components/header/header";
+
+import { Toaster } from 'react-hot-toast';
+
 
 export const metadata: Metadata = {
   title: "NutriLog",
@@ -23,6 +30,7 @@ export default async function RootLayout({
       <body className="bg-bright">
         <ResponsivityProvider>
           <UserContextProvider user={user!}>
+            <Toaster />
             <div>
               <Header />
               <main className="container m-auto">{children}</main>

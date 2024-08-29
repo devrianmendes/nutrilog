@@ -62,8 +62,9 @@ model FoodCategory {
 model FoodItems {
 	id String @id @default(uuid())
 	name String @db.VarChar(30)
-  calories Int
   banner String?
+  calories Int
+  unity String
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
   createdBy String
@@ -91,6 +92,7 @@ model Nutrients {
 model FoodNutrients {
   id String @id @default(uuid())
   quantity Decimal @db.Decimal(4, 1)
+  nutrientName String @db.VarChar(50)
 
   foodItemId String
   foodItem FoodItems @relation(fields: [foodItemId], references: [id])

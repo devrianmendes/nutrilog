@@ -2,7 +2,8 @@ import FoodFooter from "./foodFooter";
 import FoodHeader from "./foodHeader";
 import FoodNew from "./foodNew";
 
-export default function Food() {
+export default function Food({data}) {
+  console.log(data)
   return (
     <section>
       <div className="mb-2">

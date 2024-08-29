@@ -4,15 +4,19 @@ import FoodList from "@/components/food/foodList/foodList";
 import FoodNew from "@/components/food/foodNew";
 import Button from "@/components/ui/button";
 import Subtitle from "@/components/ui/subtitle";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function FoodPage() {
   const [newFood, setNewFood] = useState(false);
+  const [listUpdate, setListUpdate] = useState(false);
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    setNewFood(!newFood)
-    console.log(newFood)
-  }
+    setNewFood(!newFood);
+  };
+
+  useEffect(() => {
+    setNewFood(false);
+  }, [listUpdate]);
 
   return (
     <main className="flex flex-col ">
@@ -27,8 +31,10 @@ export default function FoodPage() {
         </select>
       </div>
 
-      <FoodList />
-      {newFood ? <FoodNew /> : null}
+      <FoodList listUpdate={listUpdate} />
+      {newFood ? (
+        <FoodNew listUpdate={listUpdate} setListUpdate={setListUpdate} />
+      ) : null}
 
       <div onClick={handleClick}>
         <Button extraClass="m-auto" buttonType="primary">

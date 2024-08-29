@@ -64,14 +64,4 @@ export type UserDataProps = {
   role: string;
 };
 
-export type NewFoodProps = {
-  name: string;
-  kcal: number;
-  carb: number;
-  prot: number;
-  gord: number;
-  banner: string;
-  typeCount: string;
-  prepareMode: string;
-  foodGroup: string;
-};
+
