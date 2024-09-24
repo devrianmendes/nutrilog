@@ -19,8 +19,9 @@ export default async function getFoodList() {
     const setPreparation = await prismaClient.preparation.createMany({
       data: [
         {
-          name: "fritura",
-          additionalCalories: 
+          name: "submersionFrying",
+          description: "Alimento completamente submerso em gordura.",
+          additionalCalories: 50,
         },
       ]
     })
