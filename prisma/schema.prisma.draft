@@ -13,11 +13,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum Role {
-  USER
-  ADMIN
-}
-
+//USER TABLES AND RELATIONS
 model User {
   id String @id @default(uuid())
   email String @unique @db.VarChar(100)
@@ -32,7 +28,6 @@ model User {
   bodyMeasurements BodyMeasurement[]
 
   @@map("users")
-  @@index([id, email])
 }
 
 model UserData {
@@ -50,27 +45,53 @@ model UserData {
   user User @relation(fields: [userId], references: [id])
   
   @@map("usersData")
-  @@index([userId])
 }
 
 model BodyMeasurement {
   id String @id @default(uuid())
   height Decimal @db.Decimal(3, 2)
   weight Decimal @db.Decimal(4, 1)
-  createdAt DateTime @default(now())
 
   userId String
   user User @relation(fields: [userId], references: [id])
-
+  createdAt DateTime @default(now())
   @@map("bodyMeasurements")
-  @@index([userId, createdAt])
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+//FOOD TABLES AND RELATIONS
+model FoodItem {
+	id String @id @default(uuid())
+	name String @db.VarChar(30)
+  banner String?
+  calories Decimal @db.Decimal(5,1)
+  unity String
+  visibleFat Boolean @db.Boolean
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  createdBy String
+
+  foodCategoryId String
+  foodCategory FoodCategory @relation(fields: [foodCategoryId], references: [id])
+
+  foodItemPrepMethod FoodItemPrepMethod[]
+  
+  nutrient Nutrient?
+
+  foodItemRecipe FoodItemRecipe[]
+
+  @@map("foodItems")
 }
 
 model FoodCategory {
   id String @id @default(uuid())
   name String @db.VarChar(20)
   banner String?
-  description String @db.VarChar(50)
+  description String @db.VarChar(30)
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
 
@@ -85,49 +106,25 @@ model Nutrient {
   carb Decimal @db.Decimal(4,1)
   fat Decimal @db.Decimal(4,1)
   fibr Decimal @db.Decimal(4,1)
-  createdAt DateTime @default(now()) 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) 
 
   foodItemId String @unique
   foodItem FoodItem @relation(fields: [foodItemId], references: [id])
 
   @@map("nutrients")
-  @@index([foodItemId])
-}
-
-model FoodItem {
-	id String @id @default(uuid())
-	name String @db.VarChar(30)
-  banner String?
-  calories Decimal @db.Decimal(5,1)
-  unity String
-  visibleFat Boolean @db.Boolean
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
-  createdBy String
-
-  nutrient Nutrient?
-  foodItemRecipe FoodItemRecipe[]
-  foodPrepMethod FoodPrepMethod[]
-  foodItemMeal FoodItemMeal[]
-  
-  foodCategoryId String
-  foodCategory FoodCategory @relation(fields: [foodCategoryId], references: [id])
-
-
-  @@index([id, createdBy])
-  @@map("foodItems")
 }
 
 model PrepMethod {
   id String @id @default(uuid())
   name String @db.VarChar(20)
   description String @db.VarChar(100)
-  factorValueMin Int @db.SmallInt
-  factorValueMax Int @db.SmallInt
+  factorValueMin Int
+  factorValueMax Int
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
 
-  foodPrepMethod FoodPrepMethod[]
+  foodItemPrepMethod FoodItemPrepMethod[]
 
   @@map("prepMethods")
 }
@@ -141,33 +138,13 @@ model Recipe {
   createdBy String
 
   foodItemRecipe FoodItemRecipe[]
-  mealRecipe MealRecipe[]
 
   @@map("recipes")
 }
 
-model Meal {
-  id String @id @default(uuid())
-  name String @db.VarChar(100)
-  description String @db.VarChar(100)
-  banner String?
-  mealType Int @db.SmallInt
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
-  consumedOn DateTime @db.Date
-  createdBy String
-
-  foodItemMeal FoodItemMeal[]
-  mealRecipe MealRecipe[]
-
-  @@map("meals")
-  @@index([createdBy, mealType])
-}
-
-//MANY-TO-MANY RELATIONS
 model FoodItemRecipe {
   id String @id @default(uuid())
+
   quantity Int
   foodItemId String
   recipeId String
@@ -179,42 +156,12 @@ model FoodItemRecipe {
   @@map("foodItemRecipes")
 }
 
-model FoodPrepMethod {
+model FoodItemPrepMethod {
   id String @id @default(uuid())
 
-  adjustedKcal Decimal @db.Decimal(4,1)
-  adjustedFat Decimal @db.Decimal(4,1)
-
   foodItemId String
+  foodItem FoodItem @relation(fields: [foodItemId], references: [id])
+
   prepMethodId String
-
-
-  foodItem FoodItem @relation(fields: [foodItemId], references: [id])
   prepMethod PrepMethod @relation(fields: [prepMethodId], references: [id])
-
-  @@map("foodPrepMethods")
-}
-
-model FoodItemMeal {
-  id String @id @default(uuid())
-
-  mealId String
-  foodItemId String
-
-  foodItem FoodItem @relation(fields: [foodItemId], references: [id])
-  meal Meal @relation(fields: [mealId], references: [id])
-
-  @@map("foodItemsMeals")
-}
-
-model MealRecipe {
-  id String @id @default(uuid())
-
-  mealId String
-  recipeId String
-
-  meal Meal @relation(fields: [mealId], references: [id])
-  recipe Recipe @relation(fields: [recipeId], references: [id])
-
-  @@map("mealsRecipes")
 }

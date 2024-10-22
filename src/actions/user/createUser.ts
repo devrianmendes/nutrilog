@@ -83,7 +83,7 @@ export default async function createUser(state: {}, formData: FormData) {
 
     console.log(validUser)
 
-    const postUser = await prismaClient.users.create({
+    const postUser = await prismaClient.user.create({
       data: {
         completeName: validUser.completeName,
         email: validUser.email,
