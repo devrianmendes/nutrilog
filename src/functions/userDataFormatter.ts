@@ -1,4 +1,4 @@
-import { UserDataProps, UserFormatterProps } from "@/types/types";
+import { UserDataProps, UserFormatterProps } from "@/types/userTypes";
 
 export function UserDataFormatterToServer(user: UserFormatterProps) {
   user.birth = new Date(user.birth!).toISOString();

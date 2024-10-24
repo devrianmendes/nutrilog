@@ -38,6 +38,7 @@ export default function CreateUserForm() {
   const [userState, setUserState] = useState("");
   const [userCity, setUserCity] = useState("");
   const [terms, setTerms] = useState(false);
+  const [warning, setWarning] = useState(false);
 
   const { estados } = stateCityList;
   const [cities, setCities] = useState<string[]>([]);
@@ -303,7 +304,12 @@ export default function CreateUserForm() {
       <Span spanType="error">{state.error}</Span>
 
       <label className="m-auto">
-        <input className="mr-1" type="checkbox" />
+        <input
+          className="mr-1"
+          type="checkbox"
+          checked={warning}
+          onChange={({ target }) => setWarning(target.checked)}
+        />
         <Span spanType="error">Aviso importante: </Span>
         Alguns dados não poderão ser alterados e outros só poderão ser alterados
         como evolução pessoal no painel de evoluções. Tenha certeza que estão

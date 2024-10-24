@@ -17,7 +17,7 @@ export default async function loginUser(state: {}, formData: FormData) {
     if (!user.email || !user.password) throw new Error("Preencha os dados.");
 
     //VERIFICANDO SE O EMAIL EXISTE NO DB
-    const authUser = await prismaClient.users.findFirst({
+    const authUser = await prismaClient.user.findFirst({
       where: {
         email: user.email,
       },

@@ -48,20 +48,20 @@ export type UserFormatterProps = {
 };
 
 export type UserDataProps = {
-  id: string;
-  email: string;
-  completeName: string;
+  id: string; 
+  email: string; 
+  completeName: string; 
   // password: string;
   // confirmPassword: string;
-  gender: string;
-  birth: string | Date;
-  goal: string;
-  activityLevel: string;
-  weight: number | Decimal;
-  height: number | Decimal;
-  state: string;
-  city: string;
-  role: string;
+  gender: string; 
+  birth: string | Date; 
+  goal: string; 
+  activityLevel: string; 
+  weight: number | Decimal; 
+  height: number | Decimal; 
+  state: string; 
+  city: string; 
+  role: string; 
 };
 
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState } from "react";
-import { UserDataProps } from "@/types/types";
+import { UserDataProps } from "@/types/userTypes";
 
 type UserContextProps = {
   user: UserDataProps | null;

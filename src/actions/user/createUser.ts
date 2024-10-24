@@ -24,7 +24,10 @@ export default async function createUser(state: {}, formData: FormData) {
     userState: formData.get("userState") as string | null,
     userCity: formData.get("userCity") as string | null,
     terms: formData.get("terms") === "on" ? true : false,
+    warning: formData.get("warning") === "on" ? true : false,
   };
+
+  console.log(user)
 
   try {
     if (
@@ -44,8 +47,12 @@ export default async function createUser(state: {}, formData: FormData) {
       throw new Error("Preencha os dados.");
     }
 
+    if(!user.warning) {
+      throw new Error("Leia o aviso.");
+    }
+
     if (user.password !== user.confirmPassword)
-      throw new Error("As senhas estão diferentes.");
+      throw new Error("As senhas não conferem.");
 
     if (!user.terms)
       throw new Error("Você precisa aceitar os termos e condições.");
@@ -68,7 +75,7 @@ export default async function createUser(state: {}, formData: FormData) {
 
     UserDataFormatterToServer(validUser);
 
-    const emailAlreadyExist = await prismaClient.users.findFirst({
+    const emailAlreadyExist = await prismaClient.user.findFirst({
       where: {
         email: validUser.email,
       },
@@ -99,8 +106,6 @@ export default async function createUser(state: {}, formData: FormData) {
     const postUserData = await prismaClient.userData.create({
       data: {
         userId: postUser.id,
-        height: validUser.height,
-        weight: validUser.weight,
         birth: validUser.birth,
         goal: validUser.goal,
         activityLevel: validUser.activity,
@@ -111,6 +116,16 @@ export default async function createUser(state: {}, formData: FormData) {
     });
 
     console.log(postUserData, 'postuserData')
+
+    const postUserMeasurements = await prismaClient.bodyMeasurement.create({
+      data: {
+        height: validUser.height,
+        weight: validUser.weight,
+        userId: postUser.id
+      }
+    })
+
+    console.log(postUserMeasurements)
 
     await loginUser({ ok: true, error: "", data: null }, formData);
 

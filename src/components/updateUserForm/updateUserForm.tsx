@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useFormStatus } from "react-dom";
-
+import { useFormState, useFormStatus } from "react-dom";
+import {useRouter} from "next/navigation"
+ 
 import { useUser } from "@/context/userContext";
 
 import { stateCityList } from "@/constants/places";
@@ -10,6 +11,7 @@ import { stateCityList } from "@/constants/places";
 import Button from "../ui/button";
 import Input from "../ui/input";
 import { Span } from "../ui/span";
+import updateUser from "@/actions/user/updateUser";
 
 const FormButton = () => {
   const { pending } = useFormStatus();
@@ -27,6 +29,7 @@ const FormButton = () => {
 
 export default function UpdateUserForm() {
   const { user } = useUser();
+  const router = useRouter();
   if (!user) throw new Error("Usuário não existe.");
 
   const [completeName, setCompleteName] = useState(user.completeName);
@@ -39,19 +42,17 @@ export default function UpdateUserForm() {
   const [activityLevel, setActivityLevel] = useState(user.activityLevel);
   const [height, setHeight] = useState(user.height);
   const [weight, setWeight] = useState(user.weight);
-  const [state, setState] = useState(user.state);
+  const [uf, setUf] = useState(user.state);
   const [city, setCity] = useState(user.city);
 
   const { estados } = stateCityList;
   const [cities, setCities] = useState<string[]>([]);
 
-  // const [state, action] = useFormState(createUser, {
-  //   ok: false,
-  //   error: "",
-  //   user: null,
-  // });
-
-  // console.log(user);
+  const [state, action] = useFormState(updateUser, {
+    ok: false,
+    error: "",
+    user: null,
+  });
 
   useEffect(() => {
     const buscaCidade = (e: string) => {
@@ -64,16 +65,16 @@ export default function UpdateUserForm() {
       }
     };
 
-    buscaCidade(state);
-  }, [state]);
+    buscaCidade(uf);
+  }, [uf]);
 
-  // useEffect(() => {
-  //   if (state.ok) window.location.href = "/";
-  // }, [state.ok]);
+  useEffect(() => {
+    if (state.ok) window.location.href = "/sessao/minha-conta";
+  }, [state.ok]);
 
   return (
-    <form className="flex flex-col w-full max-w-xl">
-      <label htmlFor="completeName">Nome:</label>
+    <div className="flex flex-col w-full max-w-xl ">
+      <label htmlFor="completeName">Nome: </label>
       <Input
         type="text"
         name="completeName"
@@ -202,42 +203,46 @@ export default function UpdateUserForm() {
         </div>
       </div>
 
-      <label htmlFor="states">Estado:</label>
-      <select
-        className="border-solid border border-midGreen w-full leading-7 px-2 mb-2"
-        name="userState"
-        required
-        value={state}
-        onChange={(e) => setState(e.target.value)}
-      >
-        <option value="" disabled>
-          Selecione seu estado
-        </option>
-        {estados.map((eachEstado) => (
-          <option value={eachEstado.nome}>{eachEstado.nome}</option>
-        ))}
-      </select>
+      <form action={action} className="flex flex-col">
+        <label htmlFor="states">Estado:</label>
+        <select
+          className="border-solid border border-midGreen w-full leading-7 px-2 mb-2"
+          name="userUf"
+          required
+          value={uf}
+          onChange={(e) => setUf(e.target.value)}
+        >
+          <option value="" disabled>
+            Selecione seu estado
+          </option>
+          {estados.map((eachEstado) => (
+            <option value={eachEstado.nome}>{eachEstado.nome}</option>
+          ))}
+        </select>
 
-      <label htmlFor="cities">Cidade:</label>
-      <select
-        className="border-solid border border-midGreen w-full leading-7 px-2 mb-2"
-        name="userCity"
-        value={city}
-        onChange={(e) => setCity(e.target.value)}
-      >
-        <option value="" disabled>
-          {city}
-        </option>
-        {cities.map((eachCity) => (
-          <option value={eachCity}>{eachCity}</option>
-        ))}
-      </select>
+        <label htmlFor="cities">Cidade:</label>
+        <select
+          className="border-solid border border-midGreen w-full leading-7 px-2 mb-2"
+          name="userCity"
+          value={city}
+          onChange={(e) => setCity(e.target.value)}
+        >
+          <option value="" disabled>
+            {city}
+          </option>
+          {cities.map((eachCity) => (
+            <option value={eachCity}>{eachCity}</option>
+          ))}
+        </select>
 
-      <p className="text-center">
-        Alguns dados não podem ser alterados porque ficarão registrados como o
-        início da sua evolução. Informe suas evoluções no painel de evolução.
-      </p>
-      <FormButton />
-    </form>
+        <p className="text-center">
+          Alguns dados não podem ser alterados porque ficarão registrados como o
+          início da sua evolução. Informe suas evoluções ou mudanças de objetivo
+          no painel de evolução.
+        </p>
+        <Span spanType="error">{state.error}</Span>
+        <FormButton />
+      </form>
+    </div>
   );
 }
