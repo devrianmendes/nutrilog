@@ -1,4 +1,5 @@
 "use client";
+import newCategory from "@/actions/food/newCategory";
 import Food from "@/components/food/food";
 import FoodList from "@/components/food/foodList/foodList";
 import FoodNew from "@/components/food/foodNew";
