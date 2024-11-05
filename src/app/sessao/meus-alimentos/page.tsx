@@ -1,4 +1,5 @@
 "use client";
+import getFoodList from "@/actions/food/getFoodList";
 import newCategory from "@/actions/food/newCategory";
 import Food from "@/components/food/food";
 import FoodList from "@/components/food/foodList/foodList";
@@ -11,13 +12,17 @@ export default function FoodPage() {
   const [newFood, setNewFood] = useState(false);
   const [listUpdate, setListUpdate] = useState(false);
 
+  
+
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     setNewFood(!newFood);
   };
 
+
   useEffect(() => {
     setNewFood(false);
   }, [listUpdate]);
+
 
   return (
     <main className="flex flex-col ">

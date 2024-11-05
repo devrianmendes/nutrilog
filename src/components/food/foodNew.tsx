@@ -100,13 +100,14 @@ export default function FoodNew({ setListUpdate, listUpdate }: UpdateProps) {
       setVisibleFat(false);
       setPublish(false);
     } else {
-      // const setNewFood = await newFood(food);
-      // if (setNewFood.ok) {
-      //   toast.success(setNewFood.message);
-      //   setListUpdate(!listUpdate);
-      // } else {
-      //   toast.error(setNewFood.message);
-      // }
+      const setNewFood = await newFood(food);
+
+      if (setNewFood.ok) {
+        toast.success(`Alimento ${setNewFood.message} salvo!`);
+        setListUpdate(listUpdate);
+      } else {
+        toast.error(setNewFood.message);
+      }
     }
   };
 
@@ -138,7 +139,8 @@ export default function FoodNew({ setListUpdate, listUpdate }: UpdateProps) {
     prepareMode,
     foodGroup,
     visibleFat,
-    portions
+    portions,
+    publish
   ]);
 
   useEffect(() => {
@@ -299,10 +301,14 @@ export default function FoodNew({ setListUpdate, listUpdate }: UpdateProps) {
             <option value="" disabled>
               Método de preparo
             </option>
-            <option value="cozido">Cozido</option>
-            <option value="grelhado">Grelhado</option>
-            <option value="frito">Frito</option>
-            <option value="assado">Assado</option>
+            <option value="Cozido">Cozido</option>
+            <option value="Grelhado">Grelhado</option>
+            <option value="Assado">Assado</option>
+            <option value="Air fryer">Air fryer</option>
+            <option value="Frito (sem gordura)">Frito (sem gordura)</option>
+            <option value="Frito (untado)">Frito (untado)</option>
+            <option value="Frito (fritura rasa)">Frito (fritura rasa)</option>
+            <option value="Frito (imersao)">Frito (imersão)</option>
           </select>
           <select
             className="w-full ml-0.5 border-solid border border-midGreen leading-7 mb-2 px-2 focus:outline-midGreen"

@@ -18,6 +18,12 @@ enum Role {
   ADMIN
 }
 
+enum Status {
+  approved
+  pending
+  rejected
+}
+
 model User {
   id String @id @default(uuid())
   email String @unique @db.VarChar(100)
@@ -101,9 +107,12 @@ model FoodItem {
   calories Decimal @db.Decimal(5,1)
   unity String
   visibleFat Boolean @db.Boolean
+  publish Boolean @db.Boolean @default(false)// Se o usuário deseja tornar público
+  public Boolean @db.Boolean @default(false)     // Se o admin aprovou como público
+  status String @default("rejected")
+  createdBy String
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
-  createdBy String
 
   nutrient Nutrient?
   foodItemRecipe FoodItemRecipe[]

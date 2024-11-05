@@ -57,9 +57,9 @@ export default async function getUser() {
     if (!userMeasurementResponse) throw new Error("O usuário precisa estar logado.");
 
 
-    console.log(userResponse)
-    console.log(userDataResponse)
-    console.log(userMeasurementResponse)
+    // console.log(userResponse)
+    // console.log(userDataResponse)
+    // console.log(userMeasurementResponse)
     
     let user: UserDataProps = {
       ...userResponse,
@@ -69,7 +69,7 @@ export default async function getUser() {
 
     user = UserDataFormatterToClient(user);
 
-    console.log(user)
+    // console.log(user)
 
     return user;
   } catch (error: unknown) {

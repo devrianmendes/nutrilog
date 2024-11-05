@@ -1,3 +1,5 @@
+import { Decimal } from "@prisma/client/runtime/library";
+
 export type NewFoodProps = {
   name: string;
   kcal: number;
@@ -13,3 +15,15 @@ export type NewFoodProps = {
   visibleFat: boolean;
   publish: boolean;
 };
+
+export type StoredFoodProps = {
+  name: string;
+  calories: Decimal | string;
+  banner?: string | null;
+  foodCategoryId: string,
+  unity: string;
+  visibleFat: boolean;
+  public: boolean;
+  publish: boolean;
+  status: string;
+}

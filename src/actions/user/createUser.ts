@@ -27,7 +27,7 @@ export default async function createUser(state: {}, formData: FormData) {
     warning: formData.get("warning") === "on" ? true : false,
   };
 
-  console.log(user)
+  // console.log(user)
 
   try {
     if (
@@ -88,7 +88,7 @@ export default async function createUser(state: {}, formData: FormData) {
     const saltRounds = 10;
     const hashedPassword = await hash(validUser.password, saltRounds);
 
-    console.log(validUser)
+    //console.log(validUser)
 
     const postUser = await prismaClient.user.create({
       data: {
@@ -115,7 +115,7 @@ export default async function createUser(state: {}, formData: FormData) {
       },
     });
 
-    console.log(postUserData, 'postuserData')
+    //console.log(postUserData, 'postuserData')
 
     const postUserMeasurements = await prismaClient.bodyMeasurement.create({
       data: {
@@ -125,7 +125,7 @@ export default async function createUser(state: {}, formData: FormData) {
       }
     })
 
-    console.log(postUserMeasurements)
+    //console.log(postUserMeasurements)
 
     await loginUser({ ok: true, error: "", data: null }, formData);
 
