@@ -13,7 +13,7 @@ Alterações no banco de dados:
   adicionar o enum status
 
 
-PAREI NO FOODLIST, PEGANDO OS DADOS DO FOOD PARA EXIBIR QUANDO O USUÁRIO ACESSAR A PAGINA MEUS ALIMENTOS (IA CRIAR O SELECT DA CATEGORIA)
+aparentemente terminei a parte da foodList, parei na exibição de cada item salvo pelo usuário e também no filtro
 
 
 

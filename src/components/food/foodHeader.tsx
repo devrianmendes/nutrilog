@@ -1,10 +1,12 @@
+import { Decimal } from "@prisma/client/runtime/library";
+
 type FoodDataType = {
     name: string;
-    kcal: number;
-    carb: number;
-    gord: number;
-    prot: number;
-    fibr: number;
+    calories: string | Decimal;
+    carb: string | Decimal;
+    fat: string | Decimal;
+    prot: string | Decimal;
+    fibr: string | Decimal;
     unity: string;
   };
 
@@ -17,7 +19,7 @@ export default function FoodHeader(props: FoodDataType) {
         </div>
         <div className="font-medium flex">
           <p className="mr-2">100{props.unity}</p>
-          <p>{props.kcal}kcal</p>
+          <p>{typeof(props.calories) === "string" ? props.calories : null}kcal</p>
         </div>
       </div>
       <div className="flex justify-between text-sm">
@@ -29,7 +31,7 @@ export default function FoodHeader(props: FoodDataType) {
             props.prot === undefined ? 0 : props.prot
           }`}</li>
           <li className="mr-1 text-yellow-300">{`Gord: ${
-            props.gord === undefined ? 0 : props.gord
+            props.fat === undefined ? 0 : props.fat
           }`}</li>
           <li className="mr-1 text-yellow-900">{`Fibr: ${
             props.fibr === undefined ? 0 : props.fibr

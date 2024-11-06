@@ -207,7 +207,6 @@ export default async function newFood(food: NewFoodProps) {
       ok: true,
       status: 200,
       message: setFood.name,
-
     };
   } catch (error) {
     if (error instanceof Error) {
