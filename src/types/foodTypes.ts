@@ -3,14 +3,14 @@ import { Decimal } from "@prisma/client/runtime/library";
 export type NewFoodProps = {
   name: string;
   kcal: number;
-  carb: number;
-  prot: number;
-  gord: number;
-  fibr: number;
+  carb: number | string | null;
+  prot: number | string | null;
+  fat: number | string | null;
+  fibr: number | string | null;
   banner: string;
   unity: string;
   quantity: number;
-  prepareMode: string;
+  prepMethod: string;
   foodGroup: string;
   visibleFat: boolean;
   publish: boolean;
@@ -19,7 +19,7 @@ export type NewFoodProps = {
 export type StoredFoodProps = {
   id: string,
   name: string;
-  calories: Decimal | string;
+  kcal: string;
   banner?: string | null;
   foodCategoryId: string,
   unity: string;
@@ -27,13 +27,14 @@ export type StoredFoodProps = {
   public: boolean;
   publish: boolean;
   status: string;
+  prepMethod: string;
 }
 
 export type StoredNutrientsProps = {
-  carb: Decimal | string;
-  prot: Decimal | string;
-  fat: Decimal | string;
-  fibr: Decimal | string;
+  carb: string;
+  prot: string;
+  fat: string;
+  fibr: string;
 }
 
 export type FullLoadedFood = StoredFoodProps & StoredNutrientsProps;

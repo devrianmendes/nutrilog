@@ -1,16 +1,19 @@
+import { NewFoodProps } from "@/types/foodTypes";
 import { Decimal } from "@prisma/client/runtime/library";
 
 type FoodDataType = {
     name: string;
-    calories: string | Decimal;
-    carb: string | Decimal;
-    fat: string | Decimal;
-    prot: string | Decimal;
-    fibr: string | Decimal;
+    kcal: string;
+    carb: string;
+    fat: string;
+    prot: string;
+    fibr: string;
     unity: string;
+    prep: string;
   };
 
-export default function FoodHeader(props: FoodDataType) {
+export default function FoodHeader(props: FoodDataType | NewFoodProps) {
+
   return (
     <header className="bg-midGreen py-1 px-2">
       <div className="flex justify-between text-bright">
@@ -19,22 +22,22 @@ export default function FoodHeader(props: FoodDataType) {
         </div>
         <div className="font-medium flex">
           <p className="mr-2">100{props.unity}</p>
-          <p>{typeof(props.calories) === "string" ? props.calories : null}kcal</p>
+          <p>{typeof(props.kcal) === "string" ? props.kcal : null}kcal</p>
         </div>
       </div>
       <div className="flex justify-between text-sm">
         <ul className="flex ">
           <li className="mr-1 text-sky-600">{`Carb: ${
-            props.carb === undefined ? 0 : props.carb
+            props.carb ? props.carb : "0" 
           }`}</li>
           <li className="mr-1 text-red-500">{`Prot: ${
-            props.prot === undefined ? 0 : props.prot
+            props.prot ? props.prot : 0
           }`}</li>
           <li className="mr-1 text-yellow-300">{`Gord: ${
-            props.fat === undefined ? 0 : props.fat
+            props.fat ? props.fat : 0
           }`}</li>
           <li className="mr-1 text-yellow-900">{`Fibr: ${
-            props.fibr === undefined ? 0 : props.fibr
+            props.fibr ? props.fibr : 0
           }`}</li>
         </ul>
         <p className="bg-dark bg-opacity-70 text-lightGreen px-2 py-0.5">

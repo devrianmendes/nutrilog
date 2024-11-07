@@ -17,8 +17,8 @@ export default function FoodList({ listUpdate }: { listUpdate: boolean }) {
     const loadList = async () => {
       const getList = await getFoodList();
 
-      if (!getList.data || !Array.isArray(getList.data)) {
-        toast.error("Erro ao carregar os alimentos. Por favor, recarregue a página.");
+      if (!getList.ok || !Array.isArray(getList.data)) {
+        toast.error(getList.message);
         setList([]); 
         return; 
       }
@@ -28,10 +28,12 @@ export default function FoodList({ listUpdate }: { listUpdate: boolean }) {
     loadList();
   }, [listUpdate]);
 
+  // console.log(list)
+
   return (
     <ul>
-      {list.map((eachItem, index) => (
-        <Food {...eachItem} />
+      {list.map((eachItem, i) => (
+        <Food {...eachItem} key={i}/>
       ))}
     </ul>
   );

@@ -13,7 +13,7 @@ Alterações no banco de dados:
   adicionar o enum status
 
 
-aparentemente terminei a parte da foodList, parei na exibição de cada item salvo pelo usuário e também no filtro
+criei o footer dos alimentos, falta poder editar o alimento, apagar e também no filtro
 
 
 

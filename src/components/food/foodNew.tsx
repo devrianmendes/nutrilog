@@ -27,28 +27,27 @@ type PortionType = {
 }[];
 
 export default function FoodNew({ setListUpdate, listUpdate }: UpdateProps) {
-
   const [food, setFood] = useState<NewFoodProps>({
     name: "",
     kcal: 0,
-    carb: 0,
-    prot: 0,
-    gord: 0,
-    fibr: 0,
+    carb: null,
+    prot: null,
+    fat: null,
+    fibr: null,
     banner: "",
     quantity: 100,
     unity: "",
-    prepareMode: "",
+    prepMethod: "",
     foodGroup: "",
     visibleFat: false,
-    publish: false
+    publish: false,
   });
 
   const [name, setName] = useState("");
-  const [carb, setCarb] = useState<number | string>("");
-  const [prot, setProt] = useState<number | string>("");
-  const [gord, setGord] = useState<number | string>("");
-  const [fibr, setFibr] = useState<number | string>("");
+  const [carb, setCarb] = useState<number | string | null>(null);
+  const [prot, setProt] = useState<number | string | null>("");
+  const [fat, setFat] = useState<number | string | null>("");
+  const [fibr, setFibr] = useState<number | string | null>("");
   const [kcal, setKcal] = useState<number | string>("");
   const [banner, setBanner] = useState("");
   const [unity, setUnity] = useState("");
@@ -56,14 +55,14 @@ export default function FoodNew({ setListUpdate, listUpdate }: UpdateProps) {
   const [portionValue, setPortionValue] = useState<number | string>("");
   const [portions, setPortions] = useState<PortionType>([]);
   const quantity = 100;
-  const [prepareMode, setPrepareMode] = useState("");
+  const [prepMethod, setPrepMethod] = useState("");
   const [foodGroup, setFoodGroup] = useState("");
   const [visibleFat, setVisibleFat] = useState(false);
   const [publish, setPublish] = useState(false);
 
   const handleSetPortion = () => {
     if (!portionName || !portionValue) {
-      toast.error("Preencha os dois campos da porção.")
+      toast.error("Preencha os dois campos da porção.");
       return;
     }
     const newPortion = {
@@ -77,29 +76,30 @@ export default function FoodNew({ setListUpdate, listUpdate }: UpdateProps) {
   };
 
   const handleDelPortion = (e: React.MouseEvent<SVGElement, MouseEvent>) => {
-    e.preventDefault()
+    e.preventDefault();
     const index = e.currentTarget.id;
 
-    const newPortions = portions.filter((_, i) => i !== +index)
+    const newPortions = portions.filter((_, i) => i !== +index);
 
     setPortions(newPortions);
-  }
+  };
 
   const handleClick = async (action: string) => {
     if (action === "clearfood") {
       setName("");
-      setCarb("");
-      setProt("");
-      setGord("");
-      setFibr("");
+      setCarb(null);
+      setProt(null);
+      setFat(null);
+      setFibr(null);
       setKcal("");
       setBanner("");
       setUnity("");
-      setPrepareMode("");
+      setPrepMethod("");
       setFoodGroup("");
       setVisibleFat(false);
       setPublish(false);
     } else {
+      console.log(food, "food antes de enviar");
       const setNewFood = await newFood(food);
 
       if (setNewFood.ok) {
@@ -112,17 +112,25 @@ export default function FoodNew({ setListUpdate, listUpdate }: UpdateProps) {
   };
 
   useEffect(() => {
+    // if (
+    //   typeof carb === "string" ||
+    //   typeof prot === "string" ||
+    //   typeof fat === "string" ||
+    //   typeof fibr === "string"
+    // )
+    //   return;
+
     setFood({
       name: name,
       kcal: +kcal,
-      carb: +carb,
-      prot: +prot,
-      gord: +gord,
-      fibr: +fibr,
+      carb: carb && +carb, 
+      prot: prot && +prot,
+      fat: fat && +fat,
+      fibr: fibr && +fibr,
       banner: "",
       quantity: quantity,
       unity: unity,
-      prepareMode: prepareMode,
+      prepMethod: prepMethod,
       foodGroup: (+foodGroup + 1).toString(),
       visibleFat: visibleFat,
       publish: publish,
@@ -132,15 +140,15 @@ export default function FoodNew({ setListUpdate, listUpdate }: UpdateProps) {
     kcal,
     carb,
     prot,
-    gord,
+    fat,
     fibr,
     banner,
     unity,
-    prepareMode,
+    prepMethod,
     foodGroup,
     visibleFat,
     portions,
-    publish
+    publish,
   ]);
 
   useEffect(() => {
@@ -173,28 +181,29 @@ export default function FoodNew({ setListUpdate, listUpdate }: UpdateProps) {
             extraClass="w-full mr-0.5"
             placeholder="Carb"
             type="number"
-            value={carb}
+            value={carb === null ? "" : carb}
+            required
             onChange={(e) => setCarb(e.target.value)}
           />
           <Input
             extraClass="w-full mr-0.5 ml-0.5"
             placeholder="Prot"
             type="number"
-            value={prot}
+            value={prot === null ? "" : prot}
             onChange={(e) => setProt(e.target.value)}
           />
           <Input
             extraClass="w-full ml-0.5"
             placeholder="Gord"
             type="number"
-            value={gord}
-            onChange={(e) => setGord(e.target.value)}
+            value={fat === null ? "" : fat}
+            onChange={(e) => setFat(e.target.value)}
           />
           <Input
             extraClass="w-full ml-0.5"
             placeholder="Fibra"
             type="number"
-            value={fibr}
+            value={fibr === null ? "" : fibr}
             onChange={(e) => setFibr(e.target.value)}
           />
         </div>
@@ -271,7 +280,10 @@ export default function FoodNew({ setListUpdate, listUpdate }: UpdateProps) {
             <ul>
               {portions
                 ? portions.map((eachPortion, i) => (
-                    <li key={i} className="flex items-center justify-between mb-0.5">
+                    <li
+                      key={i}
+                      className="flex items-center justify-between mb-0.5"
+                    >
                       <p className="bg-bright border-solid border border-midGreen w-6/12 leading-7 px-2 focus:outline-midGreen">
                         {eachPortion.name}
                       </p>
@@ -287,7 +299,8 @@ export default function FoodNew({ setListUpdate, listUpdate }: UpdateProps) {
                         onClick={(e) => handleDelPortion(e)}
                       />
                     </li>
-                  )) : null}
+                  ))
+                : null}
             </ul>
           </div>
         </div>
@@ -295,8 +308,8 @@ export default function FoodNew({ setListUpdate, listUpdate }: UpdateProps) {
         <div className="flex pt-4">
           <select
             className="w-full ml-0.5 border-solid border border-midGreen leading-7 mb-2 px-2 focus:outline-midGreen"
-            value={prepareMode}
-            onChange={(e) => setPrepareMode(e.target.value)}
+            value={prepMethod}
+            onChange={(e) => setPrepMethod(e.target.value)}
           >
             <option value="" disabled>
               Método de preparo

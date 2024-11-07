@@ -7,78 +7,25 @@ import { foodGroups } from "@/constants/foodGroups";
 import { error } from "console";
 
 export default async function newFood(food: NewFoodProps) {
-  // const prepMethod = await prismaClient.prepMethod.createMany({
-  //   data: [
-  //     {
-  //       name: "Cozido",
-  //       description:
-  //         "Sem mudanças significativas nas calorias ou macronutrientes.",
-  //       factorValueMin: 0,
-  //       factorValueMax: 0,
-  //     },
-  //     {
-  //       name: "Grelhado",
-  //       description:
-  //         "Ótima forma de cozimento, onde a gordura escorre e não fica na base do alimento.",
-  //       factorValueMin: 10,
-  //       factorValueMax: 25,
-  //     },
-  //     {
-  //       name: "Assado",
-  //       description:
-  //         "Diferente de grelhar, a gordura derretida escorre porém fica no refratário.",
-  //       factorValueMin: 10,
-  //       factorValueMax: 15,
-  //     },
-  //     {
-  //       name: "Air fryer",
-  //       description: "Perfeito para alimentos mais fit.",
-  //       factorValueMin: 5,
-  //       factorValueMax: 20,
-  //     },
-  //     {
-  //       name: "Frito (Sem gordura)",
-  //       description:
-  //         "Sem mudanças significativas nas calorias ou macronutrientes",
-  //       factorValueMin: 0,
-  //       factorValueMax: 0,
-  //     },
-  //     {
-  //       name: "Frito (untado)",
-  //       description:
-  //         "Pouca absorção devido a quantidade de gordura utilizada, aprox. 40kcal (1 col. de chá de óleo).",
-  //       factorValueMin: 0,
-  //       factorValueMax: 0,
-  //     },
-  //     {
-  //       name: "Frito (fritura rasa)",
-  //       description:
-  //         "Absorsão de aprox. 30% de kcal, apenas na gordura absorvida pelo alimento.",
-  //       factorValueMin: 30,
-  //       factorValueMax: 30,
-  //     },
-  //     {
-  //       name: "Frito (imersão)",
-  //       description:
-  //         "Absorsão de aprox. 50% de kcal, apenas na gordura absorvida pelo alimento.",
-  //       factorValueMin: 50,
-  //       factorValueMax: 50,
-  //     },
-  //   ],
-  // });
-
+  
   try {
     // checking if all the data is here
+    console.log(food, 'VALOR DO food NA ACTION')
+
     if (
       !food.name ||
-      !food.carb ||
-      !food.prot ||
-      !food.gord ||
-      !food.fibr ||
+      food.carb === null ||
+      food.prot === null ||
+      food.fat === null ||
+      food.fibr === null ||
+      typeof(food.carb) === "string" ||
+      typeof(food.prot) === "string" ||
+      typeof(food.fat) === "string" ||
+      typeof(food.fibr) === "string" ||
       !food.quantity ||
       !food.foodGroup ||
       !food.kcal ||
-      !food.prepareMode ||
+      !food.prepMethod ||
       !food.unity
       // !food.visibleFat
       // !food.publish
@@ -124,11 +71,11 @@ export default async function newFood(food: NewFoodProps) {
     if (!getCategory) throw new Error("Categoria inválida.");
 
     //saving the food
-    console.log("chegou até aqui");
+    // console.log("chegou até aqui");
     const setFood = await prismaClient.foodItem.create({
       data: {
         name: food.name,
-        calories: food.kcal,
+        kcal: food.kcal,
         banner: food.banner,
         createdBy: id,
         unity: food.unity,
@@ -150,7 +97,7 @@ export default async function newFood(food: NewFoodProps) {
       data: {
         carb: food.carb,
         prot: food.prot,
-        fat: food.gord,
+        fat: food.fat,
         fibr: food.fibr,
         foodItemId: setFood.id,
       },
@@ -162,7 +109,7 @@ export default async function newFood(food: NewFoodProps) {
     //finding the food preparation mode
     const getMethod = await prismaClient.prepMethod.findFirst({
       where: {
-        name: food.prepareMode,
+        name: food.prepMethod,
       },
     });
 
@@ -170,23 +117,23 @@ export default async function newFood(food: NewFoodProps) {
 
     //getting new kcal values
     let newFoodKcal = 0;
-    let newFoodGord = 0;
+    let newFoodfat = 0;
 
-    // console.log(food.gord, "gordura antes do preparo")
+    // console.log(food.fat, "fatura antes do preparo")
     // console.log(food.kcal, "kcal antes do preparo")
 
     const differ = food.visibleFat
       ? (food.kcal * getMethod.factorValueMax) / 100
       : (food.kcal * getMethod.factorValueMin) / 100;
     if (getMethod.name.includes("Frito")) {
-      newFoodGord = food.gord + differ / 9;
+      newFoodfat = food.fat + differ / 9;
       newFoodKcal = food.kcal + differ;
     } else {
-      newFoodGord = food.gord - differ / 9;
+      newFoodfat = food.fat - differ / 9;
       newFoodKcal = food.kcal - differ;
     }
 
-    // console.log(+newFoodGord.toFixed(1), "gordura depois do preparo")
+    // console.log(+newFoodfat.toFixed(1), "fatura depois do preparo")
     // console.log(+newFoodKcal.toFixed(1), "kcal depois do preparo")
 
     // console.log(newFoodKcal)
@@ -194,7 +141,7 @@ export default async function newFood(food: NewFoodProps) {
     const setFoodPrepMethod = await prismaClient.foodPrepMethod.create({
       data: {
         adjustedKcal: newFoodKcal,
-        adjustedFat: newFoodGord,
+        adjustedFat: newFoodfat,
         foodItemId: setFood.id,
         prepMethodId: getMethod.id,
       },
@@ -224,7 +171,7 @@ export default async function newFood(food: NewFoodProps) {
   //   // const nutrientsId = {
   //   //   carb: "c6adef10-6c2d-4a77-b93d-db06d5333ad4",
   //   //   prot: "8d1e6180-4dfa-4cf4-b0bd-d7b8ce0e6620",
-  //   //   gord: "f6331b79-0440-403e-a92a-282083cdef26",
+  //   //   fat: "f6331b79-0440-403e-a92a-282083cdef26",
   //   //   fibr: "80330272-fd13-4d4b-bb28-03f4f2627888",
   //   // };
 
@@ -243,10 +190,10 @@ export default async function newFood(food: NewFoodProps) {
   //   //       nutrientName: "prot",
   //   //     },
   //   //     {
-  //   //       quantity: food.gord,
+  //   //       quantity: food.fat,
   //   //       foodItemId: setFood.id,
-  //   //       nutrientsId: nutrientsId.gord,
-  //   //       nutrientName: "gord",
+  //   //       nutrientsId: nutrientsId.fat,
+  //   //       nutrientName: "fat",
   //   //     },
   //   //   ],
   //   // });

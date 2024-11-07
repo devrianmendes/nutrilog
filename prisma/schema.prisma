@@ -104,7 +104,7 @@ model FoodItem {
 	id String @id @default(uuid())
 	name String @db.VarChar(30)
   banner String?
-  calories Decimal @db.Decimal(5,1)
+  kcal Decimal @db.Decimal(5,1)
   unity String
   visibleFat Boolean @db.Boolean
   publish Boolean @db.Boolean @default(false)// Se o usuário deseja tornar público

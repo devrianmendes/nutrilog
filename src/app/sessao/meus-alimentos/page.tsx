@@ -37,16 +37,17 @@ export default function FoodPage() {
         </select>
       </div>
 
-      <FoodList listUpdate={listUpdate} />
-      {newFood ? (
-        <FoodNew listUpdate={listUpdate} setListUpdate={setListUpdate} />
-      ) : null}
-
-      <div onClick={handleClick}>
+      <div onClick={handleClick} className="mb-5">
         <Button extraClass="m-auto" buttonType="primary">
           {!newFood ? "Adicionar alimento" : "Descartar"}
         </Button>
       </div>
+
+      {newFood ? (
+        <FoodNew listUpdate={listUpdate} setListUpdate={setListUpdate} />
+      ) : null}
+      <FoodList listUpdate={listUpdate} />
+
     </main>
   );
 }

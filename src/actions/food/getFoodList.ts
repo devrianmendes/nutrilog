@@ -19,7 +19,7 @@ export default async function getFoodList() {
     const convertKcalToString = (foodList: StoredFoodProps[]) => {
       return foodList.map((food) => ({
         ...food,
-        calories: food.calories.toString(),
+        kcal: food.kcal.toString(),
       }));
     };
 
@@ -30,7 +30,7 @@ export default async function getFoodList() {
       select: {
         id: true,
         name: true,
-        calories: true,
+        kcal: true,
         banner: true,
         foodCategory: {
           select: {
@@ -45,7 +45,10 @@ export default async function getFoodList() {
       },
     });
 
+    // console.log(foodListResponse)
+
     if (foodListResponse.length === 0) {
+
       throw new Error("Você ainda não adicionou nenhum alimento. 😔");
     }
 
@@ -66,34 +69,62 @@ export default async function getFoodList() {
       },
     });
 
-    if (!nutrientsResponse) throw new Error("Erro ao encontrar os nutrientes.");
-
-    const nutrientsMap = new Map<string, (typeof nutrientsResponse)[0]>();
-    nutrientsResponse.forEach((eachNutrient) => {
-      nutrientsMap.set(eachNutrient.foodItemId, eachNutrient);
+    const prepMethodResponse = await prismaClient.foodPrepMethod.findMany({
+      where: {
+        foodItemId: {
+          in: foodIds,
+        },
+      },
+      select: {
+        foodItemId: true,
+        prepMethod: {
+          select: {
+            name: true,
+            },
+          },
+        },
     });
 
+    
+    if (!nutrientsResponse) throw new Error("Erro ao encontrar os nutrientes.");
+    
+
+    const nutrientsMap = new Map<string, (typeof nutrientsResponse)[0]>();
+    const prepMethodMap = new Map<string, (typeof prepMethodResponse)[0]>();
+
+
+    nutrientsResponse.forEach((eachNutrient) => {
+      nutrientsMap.set(eachNutrient.foodItemId, eachNutrient);
+
+
+    });
+
+    prepMethodResponse.forEach((eachPrep) => {
+      prepMethodMap.set(eachPrep.foodItemId, eachPrep);
+    });
+
+    
     const foodList = foodListResponse.map((eachFood) => {
       const matchingNutrient = nutrientsMap.get(eachFood.id);
+      const matchingPrepMethod = prepMethodMap.get(eachFood.id);
 
       return {
         ...eachFood,
         foodCategoryId: eachFood.foodCategory.name,
-        calories: eachFood.calories.toString(),
+        kcal: eachFood.kcal.toString(),
         prot: (matchingNutrient?.prot ?? 0).toString(),
         carb: (matchingNutrient?.carb ?? 0).toString(),
         fat: (matchingNutrient?.fat ?? 0).toString(),
         fibr: (matchingNutrient?.fibr ?? 0).toString(),
+        prepMethod: matchingPrepMethod!.prepMethod.name,
       };
     });
-
-    console.log(foodList)
 
     return {
       ok: true,
       status: 200,
       message: "Fetch OK!",
-      data: foodList
+      data: foodList,
     };
   } catch (error) {
     if (error instanceof Error) {
@@ -101,14 +132,14 @@ export default async function getFoodList() {
         ok: true,
         status: 200,
         message: error.message,
-        data: null
+        data: null,
       };
     } else {
       return {
         ok: true,
         status: 200,
         message: "Erro genérico.",
-        data: null
+        data: null,
       };
     }
   }
