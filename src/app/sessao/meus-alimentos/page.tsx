@@ -1,26 +1,19 @@
 "use client";
-import getFoodList from "@/actions/food/getFoodList";
-import newCategory from "@/actions/food/newCategory";
-import Food from "@/components/food/food";
+
 import FoodList from "@/components/food/foodList/foodList";
 import FoodNew from "@/components/food/foodNew";
 import Button from "@/components/ui/button";
 import Subtitle from "@/components/ui/subtitle";
-import { FoodContextProvider, useFood } from "@/context/foodContext";
-import { useUser } from "@/context/userContext";
-import { useEffect, useState } from "react";
+import { FoodContextProvider } from "@/context/foodContext";
+
+import { useState } from "react";
 
 export default function FoodPage() {
   const [newFood, setNewFood] = useState(false);
-  const [listUpdate, setListUpdate] = useState(false);
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     setNewFood(!newFood);
   };
-
-  useEffect(() => {
-    setNewFood(false);
-  }, [listUpdate]);
 
   return (
     <FoodContextProvider>
@@ -42,10 +35,8 @@ export default function FoodPage() {
           </Button>
         </div>
 
-        {newFood ? (
-          <FoodNew listUpdate={listUpdate} setListUpdate={setListUpdate} />
-        ) : null}
-        <FoodList listUpdate={listUpdate} />
+        {newFood ? <FoodNew /> : null}
+        <FoodList />
       </main>
     </FoodContextProvider>
   );

@@ -17,17 +17,17 @@ import { RiDeleteBin2Line } from "react-icons/ri";
 import { IoMdAdd } from "react-icons/io";
 import { useFood } from "@/context/foodContext";
 
-type UpdateProps = {
-  setListUpdate: React.Dispatch<React.SetStateAction<boolean>>;
-  listUpdate: boolean;
-};
+// type UpdateProps = {
+//   setListUpdate: React.Dispatch<React.SetStateAction<boolean>>;
+//   listUpdate: boolean;
+// };
 
 type PortionType = {
   name: string;
   value: number | string;
 }[];
 
-export default function FoodNew({ setListUpdate, listUpdate }: UpdateProps) {
+export default function FoodNew() {
   const [food, setFood] = useState<NewFoodProps>({
     name: "",
     kcal: 0,
@@ -107,7 +107,7 @@ export default function FoodNew({ setListUpdate, listUpdate }: UpdateProps) {
 
       if (setNewFood.ok) {
         toast.success(`Alimento ${setNewFood.message} salvo!`);
-        setListUpdate(listUpdate);
+        setUpdateList(!updateList);
       } else {
         toast.error(setNewFood.message);
       }
