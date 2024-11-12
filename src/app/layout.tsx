@@ -9,8 +9,8 @@ import getUser from "@/actions/user/getUser";
 
 import Header from "@/components/header/header";
 
-import { Toaster } from 'react-hot-toast';
-
+import { Toaster } from "react-hot-toast";
+import { FoodContextProvider } from "@/context/foodContext";
 
 export const metadata: Metadata = {
   title: "NutriLog",
@@ -22,7 +22,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   const user = await getUser();
 
   return (
@@ -33,7 +32,9 @@ export default async function RootLayout({
             <Toaster />
             <div>
               <Header />
-              <main className="container m-auto">{children}</main>
+              <FoodContextProvider>
+                <main className="container m-auto">{children}</main>
+              </FoodContextProvider>
               {/* <Footer /> */}
             </div>
           </UserContextProvider>

@@ -8,21 +8,20 @@ import {
   StoredFoodProps,
   StoredNutrientsProps,
 } from "@/types/foodTypes";
-import { categoryList } from "@/constants/categoryList";
 
-type CombinedFoodNutrientProps = StoredFoodProps & StoredNutrientsProps;
+// type CombinedFoodNutrientProps = StoredFoodProps & StoredNutrientsProps;
 
 export default async function getFoodList(filter: number) {
   try {
     const user = await getUser();
     if (!user) throw new Error("Usuário não está logado.");
 
-    const convertKcalToString = (foodList: StoredFoodProps[]) => {
-      return foodList.map((food) => ({
-        ...food,
-        kcal: food.kcal.toString(),
-      }));
-    };
+    // const convertKcalToString = (foodList: StoredFoodProps[]) => {
+    //   return foodList.map((food) => ({
+    //     ...food,
+    //     kcal: food.kcal.toString(),
+    //   }));
+    // };
 
     const foodListResponse = await prismaClient.foodItem.findMany({
       where: {
@@ -45,12 +44,6 @@ export default async function getFoodList(filter: number) {
         status: true,
       },
     });
-
-
-
-    // console.log(filteredList, "lista filtrada")
-
-    // console.log(foodListResponse)
 
     if (foodListResponse.length === 0) {
       throw new Error("Você ainda não adicionou nenhum alimento. 😔");
@@ -127,8 +120,6 @@ export default async function getFoodList(filter: number) {
     } else {
       filteredList = foodList;
     }
-
-    console.log(filteredList, 'lista full filtrada')
 
     return {
       ok: true,

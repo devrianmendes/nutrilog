@@ -4,24 +4,25 @@ import FoodList from "@/components/food/foodList/foodList";
 import FoodNew from "@/components/food/foodNew";
 import Button from "@/components/ui/button";
 import Subtitle from "@/components/ui/subtitle";
-import { FoodContextProvider } from "@/context/foodContext";
+import { FoodContextProvider, useFood } from "@/context/foodContext";
 
 import { useEffect, useState } from "react";
 
 export default function FoodPage() {
-  const [newFood, setNewFood] = useState(false);
   const [itemFilter, setItemFilter] = useState(0);
 
-  // useEffect(() => {
-  //   console.log(itemFilter)
-  // },[itemFilter])
+  const {openNew, setOpenNew} = useFood();
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    setNewFood(!newFood);
+    setOpenNew(!openNew);
   };
 
+  useEffect(() => {
+    if(openNew) setOpenNew(false);
+  }, [itemFilter])
+
   return (
-    <FoodContextProvider>
+    
       <main className="flex flex-col ">
         <div className="flex justify-between">
           <Subtitle>Meus alimentos</Subtitle>
@@ -44,15 +45,15 @@ export default function FoodPage() {
           </select>
         </div>
 
-        <div onClick={handleClick} className="mb-5">
+        <div onClick={handleClick} className="mb-5 w-max">
           <Button extraClass="m-auto" buttonType="primary">
-            {!newFood ? "Adicionar alimento" : "Descartar"}
+            {!openNew ? "Adicionar alimento" : "Descartar"}
           </Button>
         </div>
 
-        {newFood ? <FoodNew /> : null}
+        {openNew ? <FoodNew /> : null}
         <FoodList filter={itemFilter}/>
       </main>
-    </FoodContextProvider>
+
   );
 }

@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import Button from "../ui/button";
 import Input from "../ui/input";
 import FoodHeader from "./foodHeader";
-import { Span } from "../ui/span";
 
 import newFood from "@/actions/food/newFood";
 
@@ -16,11 +15,6 @@ import toast from "react-hot-toast";
 import { RiDeleteBin2Line } from "react-icons/ri";
 import { IoMdAdd } from "react-icons/io";
 import { useFood } from "@/context/foodContext";
-
-// type UpdateProps = {
-//   setListUpdate: React.Dispatch<React.SetStateAction<boolean>>;
-//   listUpdate: boolean;
-// };
 
 type PortionType = {
   name: string;
@@ -61,7 +55,7 @@ export default function FoodNew() {
   const [visibleFat, setVisibleFat] = useState(false);
   const [publish, setPublish] = useState(false);
 
-  const {updateList, setUpdateList}  = useFood();
+  const { updateList, openNew, setUpdateList, setOpenNew } = useFood();
 
   const handleSetPortion = () => {
     if (!portionName || !portionValue) {
@@ -102,12 +96,13 @@ export default function FoodNew() {
       setVisibleFat(false);
       setPublish(false);
     } else {
-      console.log(food, "food antes de enviar");
+
       const setNewFood = await newFood(food);
 
       if (setNewFood.ok) {
         toast.success(`Alimento ${setNewFood.message} salvo!`);
         setUpdateList(!updateList);
+        setOpenNew(!openNew);
       } else {
         toast.error(setNewFood.message);
       }
@@ -115,18 +110,10 @@ export default function FoodNew() {
   };
 
   useEffect(() => {
-    // if (
-    //   typeof carb === "string" ||
-    //   typeof prot === "string" ||
-    //   typeof fat === "string" ||
-    //   typeof fibr === "string"
-    // )
-    //   return;
-
     setFood({
       name: name,
       kcal: +kcal,
-      carb: carb && +carb, 
+      carb: carb && +carb,
       prot: prot && +prot,
       fat: fat && +fat,
       fibr: fibr && +fibr,
@@ -165,7 +152,7 @@ export default function FoodNew() {
           backgroundColor: "#6CB125",
           fontWeight: "bold",
         },
-        duration: 10000,
+        duration: 5000,
       }
     );
   }, []);

@@ -5,7 +5,7 @@ import getFoodList from "./getFoodList";
 
 export default async function deleteFood(foodIndex: number) {
   try {
-    const { data } = await getFoodList();
+    const { data } = await getFoodList(0);
     if (!data)
       throw new Error(
         "Erro ao carregar a lista de alimentos. Tente novamente."

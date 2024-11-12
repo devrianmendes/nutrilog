@@ -1,4 +1,4 @@
-"use client";
+
 
 import { IoCheckboxSharp } from "react-icons/io5";
 import { BsExclamationTriangleFill } from "react-icons/bs";
@@ -6,7 +6,7 @@ import { MdDangerous } from "react-icons/md";
 
 import { RiDeleteBin2Line } from "react-icons/ri";
 import deleteFood from "@/actions/food/deleteFood";
-import { useEffect, useState } from "react";
+
 import { useFood } from "@/context/foodContext";
 
 type FooterProps = {
