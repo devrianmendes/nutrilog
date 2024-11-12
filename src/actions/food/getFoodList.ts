@@ -3,6 +3,7 @@
 import { prismaClient } from "@/prisma";
 import getUser from "../user/getUser";
 import {
+  FullLoadedFood,
   NewFoodProps,
   StoredFoodProps,
   StoredNutrientsProps,
@@ -11,7 +12,7 @@ import { categoryList } from "@/constants/categoryList";
 
 type CombinedFoodNutrientProps = StoredFoodProps & StoredNutrientsProps;
 
-export default async function getFoodList() {
+export default async function getFoodList(filter: number) {
   try {
     const user = await getUser();
     if (!user) throw new Error("Usuário não está logado.");
@@ -45,10 +46,13 @@ export default async function getFoodList() {
       },
     });
 
+
+
+    // console.log(filteredList, "lista filtrada")
+
     // console.log(foodListResponse)
 
     if (foodListResponse.length === 0) {
-
       throw new Error("Você ainda não adicionou nenhum alimento. 😔");
     }
 
@@ -80,30 +84,24 @@ export default async function getFoodList() {
         prepMethod: {
           select: {
             name: true,
-            },
           },
         },
+      },
     });
 
-    
     if (!nutrientsResponse) throw new Error("Erro ao encontrar os nutrientes.");
-    
 
     const nutrientsMap = new Map<string, (typeof nutrientsResponse)[0]>();
     const prepMethodMap = new Map<string, (typeof prepMethodResponse)[0]>();
 
-
     nutrientsResponse.forEach((eachNutrient) => {
       nutrientsMap.set(eachNutrient.foodItemId, eachNutrient);
-
-
     });
 
     prepMethodResponse.forEach((eachPrep) => {
       prepMethodMap.set(eachPrep.foodItemId, eachPrep);
     });
 
-    
     const foodList = foodListResponse.map((eachFood) => {
       const matchingNutrient = nutrientsMap.get(eachFood.id);
       const matchingPrepMethod = prepMethodMap.get(eachFood.id);
@@ -120,11 +118,23 @@ export default async function getFoodList() {
       };
     });
 
+    let filteredList: FullLoadedFood[] = [];
+
+    if (filter != 0) {
+      foodList.map((eachFood) => {
+        if(+eachFood.foodCategory.name === filter) filteredList.push(eachFood)
+      });
+    } else {
+      filteredList = foodList;
+    }
+
+    console.log(filteredList, 'lista full filtrada')
+
     return {
       ok: true,
       status: 200,
       message: "Fetch OK!",
-      data: foodList,
+      data: filteredList,
     };
   } catch (error) {
     if (error instanceof Error) {

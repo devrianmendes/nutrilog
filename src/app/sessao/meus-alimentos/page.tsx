@@ -6,10 +6,15 @@ import Button from "@/components/ui/button";
 import Subtitle from "@/components/ui/subtitle";
 import { FoodContextProvider } from "@/context/foodContext";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function FoodPage() {
   const [newFood, setNewFood] = useState(false);
+  const [itemFilter, setItemFilter] = useState(0);
+
+  // useEffect(() => {
+  //   console.log(itemFilter)
+  // },[itemFilter])
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     setNewFood(!newFood);
@@ -20,12 +25,22 @@ export default function FoodPage() {
       <main className="flex flex-col ">
         <div className="flex justify-between">
           <Subtitle>Meus alimentos</Subtitle>
-          <select className="border-solid border border-midGreen leading-7 mb-2 px-2 focus:outline-midGreen">
+          <select
+            className="border-solid border border-midGreen leading-7 mb-2 px-2 focus:outline-midGreen"
+            name="itemFilter"
+            value={itemFilter}
+            onChange={(e) => setItemFilter(+e.target.value)}
+          >
             <option disabled>Filtro...</option>
-            <option>Todos</option>
-            <option>Carnes e ovos</option>
-            <option>Carboidratos</option>
-            <option>Gorduras</option>
+            <option value="0">Todos</option>
+            <option value="1">Cereais, pães e tubérculos</option>
+            <option value="2">Hortaliças</option>
+            <option value="3">Frutas</option>
+            <option value="4">Leite e derivados</option>
+            <option value="5">Carnes e Ovos</option>
+            <option value="6">Leguminosas</option>
+            <option value="7">Óleos e gorduras</option>
+            <option value="8">Açúcares e doces</option>
           </select>
         </div>
 
@@ -36,7 +51,7 @@ export default function FoodPage() {
         </div>
 
         {newFood ? <FoodNew /> : null}
-        <FoodList />
+        <FoodList filter={itemFilter}/>
       </main>
     </FoodContextProvider>
   );

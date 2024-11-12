@@ -8,7 +8,7 @@ type FoodWithIndex = FullLoadedFood & {
 }
 
 export default function Food(data: FoodWithIndex) {
-  console.log(data)
+
   return (
     <section>
       <div className="mb-2">
