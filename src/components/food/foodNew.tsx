@@ -15,6 +15,7 @@ import { foodGroups } from "@/constants/foodGroups";
 import toast from "react-hot-toast";
 import { RiDeleteBin2Line } from "react-icons/ri";
 import { IoMdAdd } from "react-icons/io";
+import { useFood } from "@/context/foodContext";
 
 type UpdateProps = {
   setListUpdate: React.Dispatch<React.SetStateAction<boolean>>;
@@ -59,6 +60,8 @@ export default function FoodNew({ setListUpdate, listUpdate }: UpdateProps) {
   const [foodGroup, setFoodGroup] = useState("");
   const [visibleFat, setVisibleFat] = useState(false);
   const [publish, setPublish] = useState(false);
+
+  const {updateList, setUpdateList}  = useFood();
 
   const handleSetPortion = () => {
     if (!portionName || !portionValue) {

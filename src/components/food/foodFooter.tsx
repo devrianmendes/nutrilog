@@ -1,20 +1,31 @@
+"use client";
+
 import { IoCheckboxSharp } from "react-icons/io5";
 import { BsExclamationTriangleFill } from "react-icons/bs";
 import { MdDangerous } from "react-icons/md";
 
 import { RiDeleteBin2Line } from "react-icons/ri";
+import deleteFood from "@/actions/food/deleteFood";
+import { useEffect, useState } from "react";
+import { useFood } from "@/context/foodContext";
 
 type FooterProps = {
   status: string;
   public: boolean;
   publish: boolean;
+  foodIndex: number;
 };
 
 export default function FoodFooter(props: FooterProps) {
   let statusValue: React.ReactNode;
 
-  console.log(props)
+  const {setUpdateList, updateList} = useFood();
 
+  const handleDelete = async () => {
+    console.log(props.foodIndex, " no front");
+    const delResponse = await deleteFood(props.foodIndex);
+    if (delResponse.ok) setUpdateList(!updateList);
+  };
 
   switch (props.status) {
     case "approved":
@@ -26,11 +37,9 @@ export default function FoodFooter(props: FooterProps) {
     case "rejected":
       statusValue = <MdDangerous color="red" size={20} />;
       break;
-      default:
+    default:
       statusValue = <MdDangerous color="red" size={20} />;
-
   }
-  console.log(props.status)
 
   return (
     <footer className="p-1 bg-stone-300 flex justify-between px-2">
@@ -46,10 +55,7 @@ export default function FoodFooter(props: FooterProps) {
             <MdDangerous color="red" size={20} />
           )}
         </p>
-        <p className="mr-4 w-max flex items-center">
-          Status:{" "}
-          {statusValue}
-        </p>
+        <p className="mr-4 w-max flex items-center">Status: {statusValue}</p>
         <p className="mr-4 w-max flex items-center">
           Público:{" "}
           {props.public ? (
@@ -59,7 +65,7 @@ export default function FoodFooter(props: FooterProps) {
           )}
         </p>
       </div>
-      <div>
+      <div onClick={handleDelete}>
         <RiDeleteBin2Line
           size={"1.8rem"}
           color={"#fafafa"}

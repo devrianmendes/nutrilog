@@ -3,7 +3,12 @@ import FoodHeader from "./foodHeader";
 
 import { FullLoadedFood } from "@/types/foodTypes";
 
-export default function Food(data: FullLoadedFood) {
+type FoodWithIndex = FullLoadedFood & {
+  foodIndex: number;
+}
+
+export default function Food(data: FoodWithIndex) {
+  console.log(data)
   return (
     <section>
       <div className="mb-2">
@@ -21,6 +26,7 @@ export default function Food(data: FullLoadedFood) {
           public={data.public}
           publish={data.publish}
           status={data.status}
+          foodIndex={data.foodIndex}
         />
       </div>
     </section>

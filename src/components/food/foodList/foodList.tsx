@@ -9,9 +9,12 @@ import {
   StoredFoodProps,
 } from "@/types/foodTypes";
 import toast from "react-hot-toast";
+import { useFood } from "@/context/foodContext";
 
 export default function FoodList({ listUpdate }: { listUpdate: boolean }) {
   const [list, setList] = useState<FullLoadedFood[]>([]);
+  const { updateList, setUpdateList} = useFood();
+
 
   useEffect(() => {
     const loadList = async () => {
@@ -26,15 +29,18 @@ export default function FoodList({ listUpdate }: { listUpdate: boolean }) {
       setList(getList.data);
     };
     loadList();
-  }, [listUpdate]);
+  }, [listUpdate, updateList]);
 
-  // console.log(list)
+
 
   return (
+
     <ul>
       {list.map((eachItem, i) => (
-        <Food {...eachItem} key={i}/>
+        <Food {...eachItem} foodIndex={i} key={i}/>
       ))}
     </ul>
+    
+
   );
 }
