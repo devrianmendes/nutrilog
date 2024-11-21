@@ -9,9 +9,8 @@ bcrypt & types/bcrypt- criptografia
 
 ESTUDAR O .FIND
 Alterações no banco de dados:
-  adicionar os campos publish (publicar) e public (publico) no foodItem. O Publish irá informar se o usuário deseja que o alimento seja publicado para outras pessoas, e o public será marcado como true quando o admin verificar.
-  adicionar o campo status, que servirá para filtrar alimentos pendentes de aprovação para o adm verificar e permitir.
-  adicionar o enum status
+  ADICIONAR A COLUNA PREPMETHOD NO FOODITEM PARA ARMAZENAR O NOME DO MODO DE PREPARO PARA EVITAR BUSCA NO DB APENAS PARA PEGAR O NOME
+  ALTERAR A COLUNA KCAL PARA STRING (FORMATO 100.0)
 
 
 criei o footer dos alimentos, falta poder editar o alimento, apagar e também no filtro

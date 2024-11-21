@@ -1,3 +1,4 @@
+import FoodBody from "./foodBody";
 import FoodFooter from "./foodFooter";
 import FoodHeader from "./foodHeader";
 
@@ -8,8 +9,8 @@ type FoodWithIndex = FullLoadedFood & {
 }
 
 export default function Food(data: FoodWithIndex) {
-
-  return (
+  console.log(data, "alimento no food")
+    return (
     <section>
       <div className="mb-2">
         <FoodHeader
@@ -22,6 +23,7 @@ export default function Food(data: FoodWithIndex) {
           unity={data.unity}
           prep={data.prepMethod}
         />
+        <FoodBody />
         <FoodFooter
           public={data.public}
           publish={data.publish}

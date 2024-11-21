@@ -6,8 +6,10 @@ import { createContext, useContext, useEffect, useState } from "react";
 type FoodContextProps = {
   updateList: boolean;
   openNew: boolean;
+  editFood: boolean;
   setOpenNew: React.Dispatch<React.SetStateAction<boolean>>;
   setUpdateList: React.Dispatch<React.SetStateAction<boolean>>;
+  setEditFood: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 // Definindo o tipo das props do Provider
@@ -34,12 +36,13 @@ export const FoodContextProvider = ({ children }: FoodProviderProps) => {
   // Inicializando o estado com useState
   const [updateList, setUpdateList] = useState<boolean>(false);
   const [openNew, setOpenNew] = useState<boolean>(false);
+  const [editFood, setEditFood] = useState<boolean>(false);
   
   useEffect(() => {
     console.log(openNew)
   },[openNew])
   return (
-    <FoodContext.Provider value={{ updateList, openNew, setUpdateList, setOpenNew }}>
+    <FoodContext.Provider value={{ updateList, openNew, editFood, setUpdateList, setOpenNew, setEditFood }}>
       {children}
     </FoodContext.Provider>
   );

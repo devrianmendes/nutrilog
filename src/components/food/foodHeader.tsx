@@ -1,6 +1,3 @@
-import { NewFoodProps } from "@/types/foodTypes";
-import { Decimal } from "@prisma/client/runtime/library";
-
 type FoodDataType = {
     name: string;
     kcal: string;
@@ -12,13 +9,13 @@ type FoodDataType = {
     prep: string;
   };
 
-export default function FoodHeader(props: FoodDataType | NewFoodProps) {
-
+export default function FoodHeader(props: FoodDataType) {
+  console.log(props, 'alimento no header')
   return (
     <header className="bg-midGreen py-1 px-2">
       <div className="flex justify-between text-bright">
         <div className="flex items-center">
-          <h3 className="font-bold mr-2">{props.name}</h3>
+          <h3 className="font-bold mr-2">{props.name} {props.prep}</h3>
         </div>
         <div className="font-medium flex">
           <p className="mr-2">100{props.unity}</p>

@@ -12,8 +12,8 @@ export default function Meal({ mealName }: MealProps) {
       <MealHeader>{mealName}</MealHeader>
       <div className="p-1">
         <div>
-          <MealItem />
-          <MealItem />
+          {/* <MealItem />
+          <MealItem /> */}
         </div>
         <div>
           <MealButtons />
