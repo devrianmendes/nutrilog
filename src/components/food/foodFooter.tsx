@@ -86,7 +86,7 @@ export default function FoodFooter(props: FooterProps) {
               size={20}
             />
           ) : (
-            <MdDangerous
+            <MdDangerous  
               data-tooltip-id="my-tooltip"
               data-tooltip-content="Não será publicado."
               data-tooltip-place="top"
